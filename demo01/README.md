@@ -12,6 +12,8 @@
 
 +   通过 nvm 对 node 做版本管理
 
+    nvm: https://github.com/creationix/nvm
+
     nvm 的全称是 **Node Version Manager**，使用这个工具的原因是可能由于各种各样的原因，项目所能兼容的 Node 版本不一致，同时 Node 各个版本自身可能有一些特性变化，需要开发者切换各种版本。
 
     +   安装 nvm
@@ -98,3 +100,31 @@
             ```
 
             试试看。
+
+## Hello world
+
+很简单，新建一个项目目录，创建 index.js 文件，里面只写一行代码：
+
+```javascript
+console.log('Hello World!');
+```
+
+然后打开终端进入当前项目目录，执行命令：
+
+```bash
+node index
+```
+
+此时终端就会打印字符串并退出 Node 程序：
+
+```bash
+Hello World!
+```
+
+启动 Node 项目就是通过下面的方式：
+
+```bash
+node 入口文件
+```
+
+其中，node 会为入口文件自动加上 `.js` 后缀。
