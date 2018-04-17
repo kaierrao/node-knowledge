@@ -8,7 +8,7 @@
 
     打开 https://nodejs.org/en/ 并下载 LTS（Long Time Support）版本
 
-    这样在本机会生成唯一版本的 Node。用命令 `node -v` 可以查看 Node 版本。
+    这样会在本机生成唯一版本的 Node。用命令 `node -v` 可以查看 Node 版本。
 
 +   通过 nvm 对 node 做版本管理
 
