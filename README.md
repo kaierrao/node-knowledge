@@ -9,10 +9,10 @@
 +   [搭建 Node.js 开发环境](./搭建Node.js开发环境)
 +   [npm 介绍](./npm介绍)
 +   [node 的模块机制](./node的模块机制)
-+   [url 解析](./url解析)
++   [url 解析 - url 模块](./url解析-url模块)
++   [url 解析 - querystring 模块](./url解析-querystring模块)
 +   [异步编程](./异步编程)
 +   [内存控制](./内存控制)
-+   Buffer
 +   [网络编程](./网络编程)
 
 ## 参考资料
