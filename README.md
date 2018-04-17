@@ -6,8 +6,8 @@
 
 ## 章节
 
-+   01. [搭建 Node.js 开发环境](./搭建 Node.js 开发环境)
-+   02. [npm 介绍](./npm 介绍)
++   [搭建 Node.js 开发环境](./搭建 Node.js 开发环境/README.md)
++   [npm 介绍](./npm 介绍/README.md)
 
 ## 参考资料
 
