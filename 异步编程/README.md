@@ -6,7 +6,7 @@ Node 将异步作为主要编程方式和设计理念。
 
 ## 异步编程的几种方式
 
-### 回调函数
+### 1. 回调函数
 
 首先，我们思考一个典型的异步编程模型，考虑这样一个题目：读取一个文件，在控制台输出这个文件内容。
 
@@ -48,7 +48,7 @@ fs.readFile('sample01.txt', 'utf8', function (err, data) {
 
 可以使用 async 和 promise 改善这段代码。
 
-### Promise
+### 2. Promise
 
 请注意下文中的大小写：`Promise` 代表构造函数，`promise` 代表实例。
 
@@ -204,8 +204,8 @@ Node 原生支持 Promise。
 		});
 		```
 
-### async
+### 3. async
 
-体验异步的终极解决方案- ES7 的 Async/Awai: https://cnodejs.org/topic/5640b80d3a6aa72c5e0030b6
+这篇文章讲的很好: https://cnodejs.org/topic/5640b80d3a6aa72c5e0030b6
 
 Node 最新版本已经支持 Async/Await，可以放心使用
