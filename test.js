@@ -1,13 +1,3 @@
-const EventEmitter = require('events');
-
-class Man extends EventEmitter { }
-
-const man = new Man();
-
-man.on('wakeup', function () {
-    console.log('man has woken up'); // 代码1
-});
-
-man.emit('wakeup');
-
-console.log('woman has woken up');  // 代码2
+const path = require('path');
+console.log(process.env.PATH)
+console.log(path.delimiter);

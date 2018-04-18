@@ -10,6 +10,7 @@
 +   [npm 介绍](./npm介绍)
 +   [node 的模块机制](./node的模块机制)
 +   [文件操作 - fs](./文件操作-fs)
++   [路径 - path](./路径-path)
 +   [url 解析 - url 模块](./url解析-url模块)
 +   [url 解析 - querystring 模块](./url解析-querystring模块)
 +   [网络编程 - tcp](./网络编程-tcp)
