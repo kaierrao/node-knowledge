@@ -1,7 +1,13 @@
-process.argv.forEach((val, index, array) => {
-    console.log('process.argv: ' + index + ': ' + val);
+process.on('SIGHUP', () => {
+    console.log('Got SIGHUP signal');
 });
 
-process.execArgv.forEach((val, index, array) => {
-    console.log('process.execArgv: ' + index + ': ' + val);
-});
+setTimeout(() => {
+    console.log('exiting');
+}, 0);
+
+console.log('hello');
+
+process.kill(process.pid, 'SIGHUP');
+
+console.log('world');
