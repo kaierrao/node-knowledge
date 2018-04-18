@@ -12,6 +12,7 @@
 +   [文件操作 - fs](./文件操作-fs)
 +   [路径 - path](./路径-path)
 +   [工具 - util](./工具-util)
++   [流 - stream](./流-stream)
 +   [url 解析 - url 模块](./url解析-url模块)
 +   [url 解析 - querystring 模块](./url解析-querystring模块)
 +   [网络编程 - tcp](./网络编程-tcp)
