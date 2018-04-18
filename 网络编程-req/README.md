@@ -2,8 +2,8 @@
 
 本文的重点会放在 `req` 这个对象上。前面已经提到，它其实是 http.IncomingMessage 实例，在服务端、客户端作用略微有差异
 
-* 服务端处：获取请求方的相关信息，如 request header 等。
-* 客户端处：获取响应方返回的相关信息，如 statusCode 等。
+* 服务端处 req ：获取请求方的相关信息，如 request header 等。
+* 客户端处 res ：获取响应方返回的相关信息，如 statusCode 等。
 
 服务端例子：
 
@@ -31,10 +31,10 @@ http.get('http://127.0.0.1:3000', function(res){
 
 http.IncomingMessage 的属性/方法/事件 不是特别多，按照是否客户端/服务端 特有的，下面进行简单归类。可以看到
 
-* 服务端处特有：url
-* 客户端处特有：statusCode、statusMessage
+* 服务端处 req 特有：url
+* 客户端处 res 特有：statusCode、statusMessage
 
-| 类型      |     名称 |   服务端   |  客户端  |
+| 类型      |     名称 |   服务端 req   |  客户端 res  |
 | :-------- | :--------:| :------: | :---: |
 | 事件    |   aborted |  ✓  |   ✓   |
 | 事件    |   close |  ✓  |   ✓   |
@@ -51,7 +51,7 @@ http.IncomingMessage 的属性/方法/事件 不是特别多，按照是否客�
 
 ## 服务端的例子
 
-### 例子一：获取httpVersion/method/url
+### 例子一：获取 httpVersion/method/url
 
 下面是一个典型的HTTP请求报文，里面最重要的内容包括：HTTP版本、请求方法、请求地址、请求头部。
 
@@ -64,8 +64,9 @@ Cache-Control: no-cache
 
 那么，如何获取上面提到的信息呢？很简单，直接上代码
 
+server
+
 ```js
-// getClientInfo.js
 const http = require('http');
 
 const server = http.createServer(function(req, res){
@@ -94,7 +95,6 @@ server.listen(3000);
 服务端代码如下：
 
 ```js
-// getClientGetQuery.js
 const http = require('http');
 const url = require('url');
 const querystring = require('querystring');
@@ -125,7 +125,6 @@ server.listen(3000);
 服务端代码如下
 
 ```js
-// getClientPostBody.js
 const http = require('http');
 const url = require('url');
 const querystring = require('querystring');
@@ -173,7 +172,7 @@ nick=casper&hello=world
 
 ## 客户端处例子
 
-### 例子一：获取httpVersion/statusCode/statusMessage
+### 例子一：获取 httpVersion/statusCode/statusMessage
 
 代码如下：
 
