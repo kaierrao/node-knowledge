@@ -26,6 +26,7 @@
 +   [进程 - process](./进程-process)
 +   [进程 - child_process](./进程-child_process)
 +   [事件 - events](./事件-events)
++   [调试 - console](./调试-console)
 
 ##   进阶使用
 
