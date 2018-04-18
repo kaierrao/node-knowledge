@@ -118,3 +118,8 @@ fs.createReadStream('./sample.txt').pipe(process.stdout);
 +   Transform Stream
 
     TODO...
+
+## 参考
+
++   https://nodejs.org/api/stream.html
++   https://github.com/chyingp/nodejs-learning-guide/blob/master/%E6%A8%A1%E5%9D%97/stream.md
