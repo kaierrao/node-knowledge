@@ -17,7 +17,7 @@ class Man extends EventEmitter {}
 
 const man = new Man();
 
-man.on('wakeup', function(){
+man.on('wakeup', () => {
     console.log('man has woken up');
 });
 
@@ -37,11 +37,11 @@ class Man extends EventEmitter {}
 
 const man = new Man();
 
-man.on('wakeup', function(){
+man.on('wakeup', () => {
     console.log('man has woken up');
 });
 
-man.on('wakeup', function(){
+man.on('wakeup', () => {
     console.log('man has woken up again');
 });
 
@@ -61,11 +61,11 @@ class Man extends EventEmitter {}
 
 const man = new Man();
 
-man.on('wakeup', function(){
+man.on('wakeup', () => {
     console.log('man has woken up');
 });
 
-man.once('wakeup', function(){
+man.once('wakeup', () => {
     console.log('man has woken up again');
 });
 
@@ -113,7 +113,7 @@ class Man extends EventEmitter {}
 
 const man = new Man();
 
-man.on('wakeup', function(){
+man.on('wakeup', () => {
     console.log('man has woken up'); // 代码1
 });
 
