@@ -56,3 +56,80 @@ console.log(2);
 详细资料，可以了解：https://cnodejs.org/topic/4f16442ccae1f4aa2700109b
 
 ## 获取命令行参数
+
+`process.argv` 返回一个数组，数组元素分别如下：
+
++   元素 1：`'node'`
++   元素 2：可执行文件的绝对路径
++   元素 x：其他，比如参数等
+
+举例：
+
+```js
+process.argv.forEach((val, index, array) => {
+    console.log('参数' + index + ': ' + val);
+});
+```
+
+运行命令 `NODE_ENV=dev node index.js --env production`， 输出如下：
+
+```
+参数0: /Users/lyy/.tnvm/versions/node/v8.9.4/bin/node
+参数1: /Users/lyy/Downloads/code/github/node-knowledge/fs
+参数2: --env
+参数3: production
+```
+
+## 获取 node 内置参数：process.execArgv
+
+和 `process.argv` 看着像，但差异很大。
+
+先看几个例子：
+
+index.js
+
+```js
+process.argv.forEach((val, index, array) => {
+    console.log('process.argv: ' + index + ': ' + val);
+});
+
+process.execArgv.forEach((val, index, array) => {
+    console.log('process.execArgv: ' + index + ': ' + val);
+});
+```
+
+运行几个命令：
+
++   `node --harmony index.js --nick lyy`
+
+    输出：
+
+    ```
+    process.argv: 0: /Users/lyy/.tnvm/versions/node/v8.9.4/bin/node
+    process.argv: 1: /Users/lyy/Downloads/code/github/node-knowledge/test
+    process.argv: 2: --nick
+    process.argv: 3: lyy
+    process.execArgv: 0: --harmony
+    ```
+
+    **process.execArgv 数组有 '--harmony'**
+
+    **process.argv 数组中没有 '--harmony'**
+
++   `node index.js --harmony --nick lyy`
+
+    输出：
+
+    ```
+    process.argv: 0: /Users/lyy/.tnvm/versions/node/v8.9.4/bin/node
+    process.argv: 1: /Users/lyy/Downloads/code/github/node-knowledge/test
+    process.argv: 2: --harmony
+    process.argv: 3: --nick
+    process.argv: 4: lyy
+    ```
+
+    **process.execArgv 是空数组**
+
+    **process.argv 数组中有 '--harmony'**
+
+
