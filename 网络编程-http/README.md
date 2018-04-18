@@ -72,3 +72,7 @@ const client = http.get('http://127.0.0.1:3000', (res) => {
 ## 继承与扩展
 
 TODO...
+
+## 参考
+
++   https://github.com/chyingp/nodejs-learning-guide/blob/master/%E6%A8%A1%E5%9D%97/http.md
