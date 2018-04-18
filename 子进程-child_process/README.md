@@ -200,7 +200,7 @@ child_process.execFile('/Users/lyy/.nvm/versions/node/v8.9.1/bin/node', ['--vers
 
     设置 execArgv 的目的一般是让子进程和父进程保持相同的环境。
 
-    比如，父进程指定了 `--harmony`，那么可以通过这种方式让子进程继承这个指定。
+    比如，父进程指定了 `--harmony`，那么可以通过 execArgv 的方式让子进程继承这个指定。
 
     parent.js
 
