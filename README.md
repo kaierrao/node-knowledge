@@ -20,7 +20,8 @@
 +   [网络编程 - res](./网络编程-res)
 +   [异步编程](./异步编程)
 +   [内存控制](./内存控制)
-+   [子进程 - child_process](./子进程-child_process)
++   [进程 - process](./进程-process)
++   [进程 - child_process](./进程-child_process)
 
 ##   进阶使用
 
