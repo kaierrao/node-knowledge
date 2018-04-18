@@ -1,13 +1,13 @@
-process.on('SIGHUP', () => {
-    console.log('Got SIGHUP signal');
+const EventEmitter = require('events');
+
+class Man extends EventEmitter { }
+
+const man = new Man();
+
+man.on('wakeup', function () {
+    console.log('man has woken up'); // 代码1
 });
 
-setTimeout(() => {
-    console.log('exiting');
-}, 0);
+man.emit('wakeup');
 
-console.log('hello');
-
-process.kill(process.pid, 'SIGHUP');
-
-console.log('world');
+console.log('woman has woken up');  // 代码2
