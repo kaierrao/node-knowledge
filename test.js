@@ -1,13 +1,10 @@
-const util = require('util');
-const obj = {};
+const fs = require('fs');
+const content = 'hello world';
 
-Object.defineProperty(obj, 'nick', {
-    enumerable: false,
-    value: 'lyy'
-});
+const filepath = './sample.txt';
 
-console.log(util.inspect(obj));
+const writeStream = fs.createWriteStream(filepath);
 
-console.log(util.inspect(obj, {
-    showHidden: true
-}));
+writeStream.write(content);
+
+writeStream.end();
