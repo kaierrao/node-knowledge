@@ -22,7 +22,7 @@
 +   [内存控制](./内存控制)
 +   [进程 - process](./进程-process)
 +   [进程 - child_process](./进程-child_process)
-+   [事件](./事件)
++   [事件 - events](./事件-events)
 
 ##   进阶使用
 
