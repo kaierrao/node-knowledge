@@ -1,11 +1,15 @@
-function foo() {
-    const c = 3;
-    return c;
-}
+const http = require('http');
 
-const a = 1;
-console.log(a);
-const b = 2;
-console.log(b);
-foo();
-console.log('done');
+const client = http.get('http://id.qq.com', (res) => {
+    let data = '';
+    res.setEncoding('utf8');
+    res.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    res.on('end', (chunk) => {
+        console.log(data);
+    });
+});
+
+client.end();
