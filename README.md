@@ -18,7 +18,7 @@
     +   **[node 的模块机制](./node的模块机制)**
 +   Node 语言编程特点
     +   [ECMAScript 6/7](http://es6.ruanyifeng.com/)
-    +   *OO（面向对象）*
+    +   OO（面向对象）
     +   **[异步编程](./异步编程)**
 +   网络
     +   [网络编程 - tcp](./网络编程-tcp)
