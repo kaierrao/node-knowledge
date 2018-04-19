@@ -1,11 +1,11 @@
-const child = require('child_process').fork('./child.js');
+const child1 = require('child_process').fork('./child.js');
+const child2 = require('child_process').fork('./child.js');
 
 const server = require('net').createServer();
 
-server.on('connection', (socket) => {
-    socket.end('handled by parent');
-});
-
 server.listen(1337, () => {
-    child.send('server', server);
+    child1.send('server', server);
+    child2.send('server', server);
+
+    server.close();
 });
