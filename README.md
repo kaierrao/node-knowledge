@@ -66,22 +66,9 @@
     +   命令行工具（比如 [bio](https://github.com/weidian-inc/bio-cli)）
     +   编辑器（vscode、atom）
 
-## 实战演练
-
-+   搭建 Node.js 开发环境
-+   一个最简单的 HTTP 服务
-+   cookie 和 session
-+   一个最简单的 express 应用
-+   使用外部模块
-+   同步异步编程
-+   路径操作
-+   文件操作
-+   流操作
-+   benchmark
-+   数据库连接
-
 ## 参考资料
 
++   [ECMAScript 6 入门](http://es6.ruanyifeng.com/)
 +   [《深入浅出 Node.JS》](https://www.amazon.cn/dp/B00GOM5IL4/ref=sr_1_1?ie=UTF8&qid=1523943449&sr=8-1&keywords=%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAnode.js)
 +   [Node.js 包教不包会](https://github.com/alsotang/node-lessons)
 +   [Node learning guide](https://github.com/chyingp/nodejs-learning-guide/blob/master/README.md)
