@@ -27,7 +27,7 @@
 +   [内存控制](./内存控制)
 +   [进程 - process](./进程-process)
 +   [进程 - child_process](./进程-child_process)
-+   集群 - cluster
++   [进程 - 多进程](./进程-多进程)
 +   [事件 - events](./事件-events)
 +   [调试 - console](./调试-console)
 +   [调试 - debug](./调试-debug)
