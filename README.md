@@ -13,19 +13,19 @@
 下面列表中，加粗部分为必须要掌握的部分。
 
 +   Node 语言环境搭建
-    +   **[搭建 Node.js 开发环境](./搭建Node.js开发环境)**
-    +   **[npm 介绍](./npm介绍)**
-    +   **[node 的模块机制](./node的模块机制)**
+    +   [搭建 Node.js 开发环境](./搭建Node.js开发环境)
+    +   [npm 介绍](./npm介绍)
+    +   [node 的模块机制](./node的模块机制)
 +   Node 语言编程特点
     +   [ECMAScript 6/7](http://es6.ruanyifeng.com/)
     +   OO（面向对象）
-    +   **[异步编程](./异步编程)**
+    +   [异步编程](./异步编程)
 +   文件操作
-    +   **[文件操作 - fs](./文件操作-fs)**
+    +   [文件操作 - fs](./文件操作-fs)
 +   路径
-    +   **[路径 - path](./路径-path)**
+    +   [路径 - path](./路径-path)
 +   流
-    +   **[流 - stream](./流-stream)**
+    +   [流 - stream](./流-stream)
     +   Buffer
 +   网络
     +   [网络编程 - tcp](./网络编程-tcp)
@@ -36,32 +36,32 @@
     +   [网络编程 - res](./网络编程-res)
     +   [网络编程 - client request](./网络编程-client-request)
     +   网络编程 - server
-    +   **[url 解析 - url 模块](./url解析-url模块)**
-    +   **[url 解析 - querystring 模块](./url解析-querystring模块)**
+    +   [url 解析 - url 模块](./url解析-url模块)
+    +   [url 解析 - querystring 模块](./url解析-querystring模块)
 +   进程
-    +   **[进程 - process](./进程-process)**
-    +   **[进程 - child_process](./进程-child_process)**
+    +   [进程 - process](./进程-process)
+    +   [进程 - child_process](./进程-child_process)
     +   [进程 - 多进程](./进程-多进程)
-    +   **[进程 - cluster](./进程-cluster)**
+    +   [进程 - cluster](./进程-cluster)
 +   内置工具
     +   [工具 - util](./工具-util)
 +   事件
-    +   **[事件 - events](./事件-events)**
+    +   [事件 - events](./事件-events)
 +   调试
-    +   **[调试 - console](./调试-console)**
-    +   **[调试 - debug](./调试-debug)**
+    +   [调试 - console](./调试-console)
+    +   [调试 - debug](./调试-debug)
     +   错误处理
 +   框架
-    +   **koa**
+    +   koa
     +   express
 +   DB 操作
-    +   **连接 mysql**
+    +   连接 mysql
 +   测试
     +   TDD
     +   BDD
 +   性能优化
-    +   **[内存控制](./内存控制)**
-    +   **benchmark**
+    +   [内存控制](./内存控制)
+    +   benchmark
 
 ## Node 应用
 
