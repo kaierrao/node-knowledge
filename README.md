@@ -18,23 +18,6 @@
     +   [ECMAScript 6/7](http://es6.ruanyifeng.com/)
     +   OO
     +   [异步编程](./异步编程)
-+   进程
-    +   [进程 - process](./进程-process)
-    +   [进程 - child_process](./进程-child_process)
-    +   [进程 - 多进程](./进程-多进程)
-    +   [进程 - cluster](./进程-cluster)
-+   文件操作
-    +   [文件操作 - fs](./文件操作-fs)
-+   路径
-    +   [路径 - path](./路径-path)
-+   内置工具
-    +   [工具 - util](./工具-util)
-+   流
-    +   [流 - stream](./流-stream)
-    +   Buffer
-+   url
-    +   [url 解析 - url 模块](./url解析-url模块)
-    +   [url 解析 - querystring 模块](./url解析-querystring模块)
 +   网络
     +   [网络编程 - tcp](./网络编程-tcp)
     +   [网络编程 - udp](./网络编程-udp)
@@ -43,10 +26,30 @@
     +   [网络编程 - req](./网络编程-req)
     +   [网络编程 - res](./网络编程-res)
     +   [网络编程 - client request](./网络编程-client-request)
+    +   [url 解析 - url 模块](./url解析-url模块)
+    +   [url 解析 - querystring 模块](./url解析-querystring模块)
     +   网络编程 - server
++   文件操作
+    +   [文件操作 - fs](./文件操作-fs)
++   路径
+    +   [路径 - path](./路径-path)
++   流
+    +   [流 - stream](./流-stream)
+    +   Buffer
++   进程
+    +   [进程 - process](./进程-process)
+    +   [进程 - child_process](./进程-child_process)
+    +   [进程 - 多进程](./进程-多进程)
+    +   [进程 - cluster](./进程-cluster)
++   内置工具
+    +   [工具 - util](./工具-util)
 +   事件
     +   [事件 - events](./事件-events)
-+   框架使用
++   调试
+    +   [调试 - console](./调试-console)
+    +   [调试 - debug](./调试-debug)
+    +   错误捕获
++   框架
     +   koa
     +   express
 +   DB 操作
@@ -54,22 +57,20 @@
 +   测试
     +   TDD
     +   BDD
-+   调试
-    +   [调试 - console](./调试-console)
-    +   [调试 - debug](./调试-debug)
-    +   错误捕获
 +   性能优化
     +   [内存控制](./内存控制)
     +   benchmark
-+   Node 应用
-    +   服务器（如 express/koa 等）
-    +   im 即时聊天(socket.io)
-    +   http proxy（淘宝首页）
-    +   前端构建工具(grunt/gulp/bower/webpack/fis3...)
-    +   写操作系统（NodeOS）
-    +   跨平台打包工具（nw.js、electron）
-    +   命令行工具（比如 [bio](https://github.com/weidian-inc/bio-cli)）
-    +   编辑器（vscode、atom）
+
+## Node 应用
+
++   服务器（如 express/koa 等）
++   im 即时聊天(socket.io)
++   http proxy（淘宝首页）
++   前端构建工具(grunt/gulp/bower/webpack/fis3...)
++   写操作系统（NodeOS）
++   跨平台打包工具（nw.js、electron）
++   命令行工具（比如 [bio](https://github.com/weidian-inc/bio-cli)）
++   编辑器（vscode、atom）
 
 ## 参考资料
 
