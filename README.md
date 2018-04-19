@@ -20,6 +20,13 @@
     +   [ECMAScript 6/7](http://es6.ruanyifeng.com/)
     +   OO（面向对象）
     +   **[异步编程](./异步编程)**
++   文件操作
+    +   **[文件操作 - fs](./文件操作-fs)**
++   路径
+    +   **[路径 - path](./路径-path)**
++   流
+    +   **[流 - stream](./流-stream)**
+    +   Buffer
 +   网络
     +   [网络编程 - tcp](./网络编程-tcp)
     +   [网络编程 - udp](./网络编程-udp)
@@ -31,13 +38,6 @@
     +   网络编程 - server
     +   **[url 解析 - url 模块](./url解析-url模块)**
     +   **[url 解析 - querystring 模块](./url解析-querystring模块)**
-+   文件操作
-    +   **[文件操作 - fs](./文件操作-fs)**
-+   路径
-    +   **[路径 - path](./路径-path)**
-+   流
-    +   **[流 - stream](./流-stream)**
-    +   Buffer
 +   进程
     +   **[进程 - process](./进程-process)**
     +   **[进程 - child_process](./进程-child_process)**
@@ -50,7 +50,7 @@
 +   调试
     +   **[调试 - console](./调试-console)**
     +   **[调试 - debug](./调试-debug)**
-    +   错误捕获
+    +   错误处理
 +   框架
     +   **koa**
     +   express
