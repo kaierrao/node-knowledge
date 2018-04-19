@@ -27,6 +27,14 @@
 +   流
     +   [流 - stream](./流-stream)
     +   Buffer
++   内置工具
+    +   [工具 - util](./工具-util)
++   事件
+    +   [事件 - events](./事件-events)
++   调试
+    +   [调试 - console](./调试-console)
+    +   [调试 - debug](./调试-debug)
+    +   错误处理
 +   网络
     +   [网络编程 - tcp](./网络编程-tcp)
     +   [网络编程 - udp](./网络编程-udp)
@@ -43,14 +51,6 @@
     +   [进程 - child_process](./进程-child_process)
     +   [进程 - 多进程](./进程-多进程)
     +   [进程 - cluster](./进程-cluster)
-+   内置工具
-    +   [工具 - util](./工具-util)
-+   事件
-    +   [事件 - events](./事件-events)
-+   调试
-    +   [调试 - console](./调试-console)
-    +   [调试 - debug](./调试-debug)
-    +   错误处理
 +   框架
     +   koa
     +   express
