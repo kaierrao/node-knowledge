@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/hoperyy/node-knowledge/issues"
   },
-  "homepage": "https://github.com/hoperyy/node-knowledge#readme"
+  "homepage": "https://github.com/hoperyy/node-knowledge#readme",
+  "dependencies": {}
 }
