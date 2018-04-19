@@ -4,37 +4,56 @@
 
 该项目对 Windows 不友好，对 Mac 友好
 
-##   基础
+## Node 知识图谱
 
-+   [搭建 Node.js 开发环境](./搭建Node.js开发环境)
-+   [npm 介绍](./npm介绍)
-+   [node 的模块机制](./node的模块机制)
-+   [文件操作 - fs](./文件操作-fs)
-+   [路径 - path](./路径-path)
-+   [工具 - util](./工具-util)
-+   [流 - stream](./流-stream)
-+   [url 解析 - url 模块](./url解析-url模块)
-+   [url 解析 - querystring 模块](./url解析-querystring模块)
-+   [网络编程 - tcp](./网络编程-tcp)
-+   [网络编程 - udp](./网络编程-udp)
-+   [网络编程 - dns](./网络编程-dns)
-+   [网络编程 - http](./网络编程-http)
-+   [网络编程 - req](./网络编程-req)
-+   [网络编程 - res](./网络编程-res)
-+   [网络编程 - client request](./网络编程-client-request)
-+   网络编程 - server
-+   [异步编程](./异步编程)
-+   [内存控制](./内存控制)
-+   [进程 - process](./进程-process)
-+   [进程 - child_process](./进程-child_process)
-+   [进程 - 多进程](./进程-多进程)
-+   [进程 - cluster](./进程-cluster)
-+   [事件 - events](./事件-events)
-+   [调试 - console](./调试-console)
-+   [调试 - debug](./调试-debug)
-+   错误捕获
-
-## 进阶
++   Node 语言环境搭建
+    +   [搭建 Node.js 开发环境](./搭建Node.js开发环境)
+    +   [npm 介绍](./npm介绍)
+    +   [node 的模块机制](./node的模块机制)
++   Node 语言编程特点
+    +   ECMAScript6/7
+    +   OO
+    +   [异步编程](./异步编程)
++   核心模块
+    +   Buffer
+    +   [进程 - process](./进程-process)
+    +   [进程 - child_process](./进程-child_process)
+    +   [进程 - 多进程](./进程-多进程)
+    +   [进程 - cluster](./进程-cluster)
+    +   [文件操作 - fs](./文件操作-fs)
+    +   [路径 - path](./路径-path)
+    +   [工具 - util](./工具-util)
+    +   [流 - stream](./流-stream)
+    +   [url 解析 - url 模块](./url解析-url模块)
+    +   [url 解析 - querystring 模块](./url解析-querystring模块)
+    +   [网络编程 - tcp](./网络编程-tcp)
+    +   [网络编程 - udp](./网络编程-udp)
+    +   [网络编程 - dns](./网络编程-dns)
+    +   [网络编程 - http](./网络编程-http)
+    +   [网络编程 - req](./网络编程-req)
+    +   [网络编程 - res](./网络编程-res)
+    +   [网络编程 - client request](./网络编程-client-request)
+    +   网络编程 - server
+    +   [事件 - events](./事件-events)
++   前后端交互（req、res）
+    +   [url 解析 - querystring 模块](./url解析-querystring模块)
+    +   [url 解析 - querystring 模块](./url解析-querystring模块)
+    +   request
+    +   response
++   框架使用
+    +   koa
+    +   express
++   DB 操作
+    +   连接 mysql
++   测试
+    +   TDD
+    +   BDD
++   调试
+    +   [调试 - console](./调试-console)
+    +   [调试 - debug](./调试-debug)
+    +   错误捕获
++   性能优化
+    +   [内存控制](./内存控制)
 
 ## 实战演练
 
