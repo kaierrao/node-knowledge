@@ -11,7 +11,7 @@
     +   [npm 介绍](./npm介绍)
     +   [node 的模块机制](./node的模块机制)
 +   Node 语言编程特点
-    +   ECMAScript6/7
+    +   ECMAScript 6/7
     +   OO
     +   [异步编程](./异步编程)
 +   核心模块
