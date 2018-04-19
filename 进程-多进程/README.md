@@ -92,4 +92,187 @@ process.send({ foo: 'bar' });
 
 ## 进程间通信原理
 
++   IPC
+
+    IPC 的全称是 Inter-Process Communication，即进程间通信。进程间通信的目的是为了让不同的进程能够互相访问资源并进行协调工作。
+
+    实现进程间通信的技术有很多，如命名管道、匿名管道、socket、信号量、共享内存、消息队列等，Node 中实现 IPC 通道的是管道技术，具体实现细节由 libuv 提供。
+
+    表现在应用层上，进程间通信只有简单的 `message` 事件和 `send()` 方法。
+
+    父进程在实际创建子进程之前，会创建 IPC 通道并监听它，然后才真正创建出子进程，并通过环境变量（NODE_CHANNEL_FD）告诉子进程这个 IPC 通道的文件描述符。
+
+    子进程在启动过程中，会根据文件描述符去连接这个已经存在的 IPC 通道，从而完成父子进程之间的连接。
+
+    **只有启动的子进程是 Node 进程时，子进程才会根据环境变量连接 IPC 通道**
+
++   句柄传递
+
+    如果多个子进程都监听同一个端口，很显然会报错 `EADDRINUSE`
+
+    也就是说，只有一个进程能够监听某一个端口。
+
+    +   一个解决方案
+
+        就是创建 master + child 父子进程结构，每个 child 进程监听不同的端口，master 进程监听主端口。master 进程对外接收所有的网络请求，再将这些请求分别代理到不同端口的 child 进程上。
+
+        但这种方式的缺点是，进程每接收到一个连接，都会用掉一个文件描述符，上述方案在 master 会用掉一个，child 再用掉一个，对文件描述符过于浪费了。
+
+    +   改进方案
+
+        为了解决上面的问题，Node 在 v0.5.9 版本引入了进程间发送句柄的功能。
+
+        `send()` 方法除了能通过 IPC 发送数据外，还能发送句柄，第二个可选参数就是句柄。
+
+        ```js
+        child.send(message[, sendHandle]);
+        ```
+
+        句柄：是一种可以标识资源的引用。可以标识一个服务器端 socket 对象、一个客户端 socket 对象、一个 UDP 套接字、一个管道等。
+
+        利用句柄方案，我们改动代码如下：
+
+        +   父进程和一个子进程共同处理请求
+
+            parent.js
+
+            ```js
+            const child = require('child_process').fork('./child.js');
+
+            const server = require('net').createServer();
+
+            server.on('connection', (socket) => {
+                socket.end('handled by parent');
+            });
+
+            server.listen(1337, () => {
+                child.send('server', server);
+            });
+            ```
+
+            child.js
+
+            ```js
+            process.on('message', (m, server) => {
+                if (m === 'server') {
+                    server.on('connection', (socket) => {
+                        socket.end('handled by child');
+                    });
+                }
+            });
+            ```
+
+            执行 `node parent.js` 启动服务后，我们在终端多次执行 `curl http://127.0.0.1:1337/`，输出会时而 parent 时而 child。
+
+        +   父进程和多个子进程共同处理请求
+
+            parent.js
+
+            ```js
+            const child1 = require('child_process').fork('./child.js');
+            const child2 = require('child_process').fork('./child.js');
+
+            const server = require('net').createServer();
+
+            server.on('connection', (socket) => {
+                socket.end('handled by parent');
+            });
+
+            server.listen(1337, () => {
+                child1.send('server', server);
+                child2.send('server', server);
+            });
+
+            ```
+
+            child.js
+
+            ```js
+            process.on('message', (m, server) => {
+                if (m === 'server') {
+                    server.on('connection', (socket) => {
+                        socket.end('handled by child: ' + process.pid);
+                    });
+                }
+            });
+            ```
+
+            执行 `node parent.js` 启动服务后，我们在终端多次执行 `curl http://127.0.0.1:1337/`，输出会在 parent 和各个 child 之间随机出现。
+
+        +   父进程不处理请求，全部交给多个子进程处理
+
+            parent.js
+
+            ```js
+            const child1 = require('child_process').fork('./child.js');
+            const child2 = require('child_process').fork('./child.js');
+
+            const server = require('net').createServer();
+
+            server.listen(1337, () => {
+                child1.send('server', server);
+                child2.send('server', server);
+
+                server.close();
+            });
+            ```
+
+            child.js
+
+            ```js
+            const http = require('http');
+
+            const server = http.createServer((req, res) => {
+                res.writeHead(200, { 'Content-Type': 'text/plain' });
+                res.end('handled by child ' + process.pid);
+            });
+
+            process.on('message', (m, tcp) => {
+                if (m === 'server') {
+                    tcp.on('connection', (socket) => {
+                        server.emit('connection', socket);
+                    });
+                }
+            });
+            ```
+
+            执行 `node parent.js` 启动服务后，我们在终端多次执行 `curl http://127.0.0.1:1337/`，输出会在各个 child 之间随机出现。
+        
+
+## 句柄传递的原理
+
++   句柄发送与还原
+
+    初看来，父进程发送的句柄为对象，子进程接收的句柄也是对象，似乎对象被直接传递了而已。然而事实不是这样。
+
+    目前子进程对象 `send()` 方法可以发送的句柄类型包括如下几种：
+
+    +   net.Socket。TCP 套接字
+    +   net.Server。TCP 服务器，任意建立在 TCP 服务上的应用层服务都可以享受到它带来的好处。
+    +   net.Native。C++ 层面的 TCP 套接字或 IPC 管道。
+    +   dgram.Socket。UDP 套接字。
+    +   dgram.Native。C++ 层面的 UDP 套接字。
+
+    `send()` 方法能发送消息和句柄不代表它能发送任意对象。
+
+    句柄被发送时，会通过 `JSON.stringify()` 进行序列化。最终发送到 IPC 通道中的信息都是字符串。
+
+    连接了 IPC 通道的子进程可以读取到父进程发来的消息，将字符串通过 `JSON.parse()` 解析还原为对象后，才出发 message 事件将消息体传递到应用层使用。
+
+    以发送的 TCP 服务器句柄为例，子进程收到消息后的还原过程如下：
+
+    ```js
+    function(message, handle, emit) {
+        const self = this;
+
+        const server = new net.Server();
+        server.listen(handle, () => {
+            emit(server);
+        });
+    }
+    ```
+
++   端口共同监听
+
+    TODO...
 
