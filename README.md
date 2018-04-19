@@ -4,6 +4,10 @@
 
 该项目对 Windows 不友好，对 Mac 友好
 
+[node api 中文文档](http://nodejs.cn/api/)
+
+[node api docs](https://nodejs.org/en/docs/)
+
 ## Node 知识图谱
 
 +   Node 语言环境搭建
@@ -11,21 +15,27 @@
     +   [npm 介绍](./npm介绍)
     +   [node 的模块机制](./node的模块机制)
 +   Node 语言编程特点
-    +   ECMAScript 6/7
+    +   [ECMAScript 6/7](http://es6.ruanyifeng.com/)
     +   OO
     +   [异步编程](./异步编程)
-+   核心模块
-    +   Buffer
++   进程
     +   [进程 - process](./进程-process)
     +   [进程 - child_process](./进程-child_process)
     +   [进程 - 多进程](./进程-多进程)
     +   [进程 - cluster](./进程-cluster)
++   文件操作
     +   [文件操作 - fs](./文件操作-fs)
++   路径
     +   [路径 - path](./路径-path)
++   内置工具
     +   [工具 - util](./工具-util)
++   流
     +   [流 - stream](./流-stream)
+    +   Buffer
++   url
     +   [url 解析 - url 模块](./url解析-url模块)
     +   [url 解析 - querystring 模块](./url解析-querystring模块)
++   网络
     +   [网络编程 - tcp](./网络编程-tcp)
     +   [网络编程 - udp](./网络编程-udp)
     +   [网络编程 - dns](./网络编程-dns)
@@ -34,13 +44,8 @@
     +   [网络编程 - res](./网络编程-res)
     +   [网络编程 - client request](./网络编程-client-request)
     +   网络编程 - server
++   事件
     +   [事件 - events](./事件-events)
-+   前后端交互（req、res）
-    +   模板
-    +   [url 解析 - querystring 模块](./url解析-querystring模块)
-    +   [url 解析 - querystring 模块](./url解析-querystring模块)
-    +   request
-    +   response
 +   框架使用
     +   koa
     +   express
