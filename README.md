@@ -56,6 +56,15 @@
 +   性能优化
     +   [内存控制](./内存控制)
     +   benchmark
++   Node 应用
+    +   服务器（如 express/koa 等）
+    +   im 即时聊天(socket.io)
+    +   http proxy（淘宝首页）
+    +   前端构建工具(grunt/gulp/bower/webpack/fis3...)
+    +   写操作系统（NodeOS）
+    +   跨平台打包工具（nw.js、electron）
+    +   命令行工具（比如 [bio](https://github.com/weidian-inc/bio-cli)）
+    +   编辑器（vscode、atom）
 
 ## 实战演练
 
