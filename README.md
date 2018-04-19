@@ -36,6 +36,7 @@
     +   网络编程 - server
     +   [事件 - events](./事件-events)
 +   前后端交互（req、res）
+    +   模板
     +   [url 解析 - querystring 模块](./url解析-querystring模块)
     +   [url 解析 - querystring 模块](./url解析-querystring模块)
     +   request
@@ -54,6 +55,7 @@
     +   错误捕获
 +   性能优化
     +   [内存控制](./内存控制)
+    +   benchmark
 
 ## 实战演练
 
