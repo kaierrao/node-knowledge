@@ -11,7 +11,7 @@
 ## Node 知识图谱
 
 +   Node 语言环境搭建
-    +   [搭建 Node.js 开发环境](./搭建Node.js开发环境)
+    +   **[搭建 Node.js 开发环境](./搭建Node.js开发环境)**
     +   [npm 介绍](./npm介绍)
     +   [node 的模块机制](./node的模块机制)
 +   Node 语言编程特点
