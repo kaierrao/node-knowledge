@@ -10,7 +10,7 @@ benchmark 用来测试 js 代码的运行性能
 
 +   `mkdir benchmark-test`
 +   `npm init`
-+   `npm i underscore benchmark microtime -S`
++   `npm i benchmark microtime -S`
 +   新增 `index.js`
 
     ```js
