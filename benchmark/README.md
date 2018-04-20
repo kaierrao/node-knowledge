@@ -17,33 +17,35 @@ benchmark 用来测试 js 代码的运行性能
     const Benchmark = require('benchmark');
 
     const suite = new Benchmark.Suite;
-    
+
     // add tests
     suite.add('RegExp#test', () => {
-      /o/.test('Hello World!');
+        /o/.test('Hello World!');
     })
-    .add('String#indexOf', () => {
-      'Hello World!'.indexOf('o') > -1;
-    })
-    // add listeners
-    .on('cycle', (event) => {
-      console.log(String(event.target));
-    })
-    .on('complete', () => {
-      console.log('Fastest is ' + this.filter('fastest').map('name'));
-    })
-    // run async
-    .run({ 'async': true });
-    
-    // logs:
-    // => RegExp#test x 4,161,532 +-0.99% (59 cycles)
-    // => String#indexOf x 6,139,623 +-1.00% (131 cycles)
-    // => Fastest is String#indexOf
+        .add('String#indexOf', () => {
+            'Hello World!'.indexOf('o') > -1;
+        })
+        // add listeners
+        .on('cycle', (event) => {
+            console.log(String(event.target));
+        })
+        .on('complete', function() {
+            console.log('Fastest is ' + this.filter('fastest').map('name'));
+        })
+        // run async
+        .run({ 'async': true });
     ```
 
     然后执行：
 
-    ```
+    ```bash
     node index
     ```
-    
+
+    输出为：
+
+    ```bash
+    RegExp#test x 27,577,443 ops/sec ±1.19% (87 runs sampled)
+    String#indexOf x 837,347,809 ops/sec ±0.51% (90 runs sampled)
+    Fastest is String#indexOf
+    ```
