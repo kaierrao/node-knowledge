@@ -1,5 +1,9 @@
 ## 介绍
 
+Node.js 是一种 JavaScript 的运行环境，能够使得 JavaScript 脱离浏览器运行。
+
+Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引擎上。
+
 这个项目介绍了 Node 相关的各类知识，持续更新中。
 
 该项目对 Windows 不友好，对 Mac 友好
