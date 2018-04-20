@@ -60,6 +60,8 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
     +   [进程 - child_process](./进程-child_process)
     +   [进程 - 多进程](./进程-多进程)
     +   [进程 - cluster](./进程-cluster)
++   [压缩 - zip](./压缩-zip)
++   [命令行交互](./命令行交互)
 
 ### 框架
 
@@ -73,7 +75,7 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
     +   BDD
 +   性能优化
     +   [内存控制](./内存控制)
-    +   benchmark
+    +   [benchmark](./benchmark)
 
 ## 参考资料
 

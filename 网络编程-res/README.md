@@ -170,7 +170,7 @@ res.write(data, encoding);
 res.end()
 ```
 
-## chunk数据
+## chunk 数据
 
 参考这里：http://stackoverflow.com/questions/6258210/how-can-i-output-data-before-i-end-the-response
 
@@ -231,6 +231,30 @@ var server = http.createServer(function(req, res){
 });
 
 server.listen(3000);
+```
+
+读取文件并返回到页面
+
+```js
+require('http').createServer(function(req, res) {
+	res.writeHead(200);
+
+	// 方式1
+	var stream = require('fs').createReadStream('./index.js');
+
+	stream.on('data', function(data) {
+		// 在 res.end() 前可以多次 res.write，结果是拼接的
+		res.write(data);
+	});
+
+	stream.on('end', function() {
+		res.end();
+	});
+
+	// 方式2
+	require('fs').createReadStream('./index.js').pipe(res);
+
+}).listen(3300);
 ```
 
 ## 超时处理
