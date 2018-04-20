@@ -42,9 +42,7 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 
 +   [文件操作 - fs](./文件操作-fs)
 +   [路径 - path](./路径-path)
-+   流
-    +   [流 - stream](./流-stream)
-    +   Buffer
++   [流 - stream](./流-stream)
 +   [工具 - util](./工具-util)
 +   [事件 - events](./事件-events)
 +   网络
@@ -55,7 +53,6 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
     +   [网络编程 - req](./网络编程-req)
     +   [网络编程 - res](./网络编程-res)
     +   [网络编程 - client request](./网络编程-client-request)
-    +   网络编程 - server
     +   [url 解析 - url 模块](./url解析-url模块)
     +   [url 解析 - querystring 模块](./url解析-querystring模块)
 +   进程
@@ -63,7 +60,6 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
     +   [进程 - child_process](./进程-child_process)
     +   [进程 - 多进程](./进程-多进程)
     +   [进程 - cluster](./进程-cluster)
-+   中间件
 
 ### 框架
 
