@@ -67,14 +67,12 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 
 ## Node 应用
 
-+   服务器（如 express/koa 等）
-+   im 即时聊天(socket.io)
-+   http proxy（淘宝首页）
-+   前端构建工具(grunt/gulp/bower/webpack/fis3...)
-+   写操作系统（NodeOS）
-+   跨平台打包工具（nw.js、electron）
-+   命令行工具（比如 [bio](https://github.com/weidian-inc/bio-cli)）
-+   编辑器（vscode、atom）
++   服务器开发：[express](https://github.com/expressjs/express) / [koa](https://github.com/koajs/koa) 等
++   im 即时聊天：socket.io
++   前端构建工具：[webpack](https://github.com/webpack) / [gulp](https://github.com/gulpjs/gulp) / [grunt](https://github.com/gruntjs/grunt) …
++   写操作系统：[NodeOS](https://github.com/NodeOS/NodeOS)
++   命令行工具：比如 [bio](https://github.com/weidian-inc/bio-cli)
++   IDE：[vscode](https://github.com/Microsoft/vscode) / [atom](https://github.com/atom/atom) 等
 
 ## 参考资料
 
