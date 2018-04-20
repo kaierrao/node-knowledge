@@ -18,6 +18,10 @@
     +   [ECMAScript 6/7](http://es6.ruanyifeng.com/)
     +   OO（面向对象）
     +   [异步编程](./异步编程)
++   调试
+    +   [调试 - console](./调试-console)
+    +   [调试 - debug](./调试-debug)
+    +   错误处理
 +   文件操作
     +   [文件操作 - fs](./文件操作-fs)
 +   路径
@@ -29,10 +33,6 @@
     +   [工具 - util](./工具-util)
 +   事件
     +   [事件 - events](./事件-events)
-+   调试
-    +   [调试 - console](./调试-console)
-    +   [调试 - debug](./调试-debug)
-    +   错误处理
 +   网络
     +   [网络编程 - tcp](./网络编程-tcp)
     +   [网络编程 - udp](./网络编程-udp)
