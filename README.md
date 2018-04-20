@@ -12,7 +12,7 @@
 
 +   Node 语言环境搭建
     +   [搭建 Node.js 开发环境与版本控制](./搭建Node.js开发环境与版本控制)
-    +   [npm 介绍与版本控制](./npm介绍与版本控制)
+    +   [npm 介绍与源控制](./npm介绍与源控制)
     +   [node 的模块机制](./node的模块机制)
 +   Node 语言编程特点
     +   [ECMAScript 6/7](http://es6.ruanyifeng.com/)
