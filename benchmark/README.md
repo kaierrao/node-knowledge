@@ -19,17 +19,17 @@ benchmark 用来测试 js 代码的运行性能
     const suite = new Benchmark.Suite;
     
     // add tests
-    suite.add('RegExp#test', function() {
+    suite.add('RegExp#test', () => {
       /o/.test('Hello World!');
     })
-    .add('String#indexOf', function() {
+    .add('String#indexOf', () => {
       'Hello World!'.indexOf('o') > -1;
     })
     // add listeners
-    .on('cycle', function(event) {
+    .on('cycle', (event) => {
       console.log(String(event.target));
     })
-    .on('complete', function() {
+    .on('complete', () => {
       console.log('Fastest is ' + this.filter('fastest').map('name'));
     })
     // run async
@@ -40,5 +40,10 @@ benchmark 用来测试 js 代码的运行性能
     // => String#indexOf x 6,139,623 +-1.00% (131 cycles)
     // => Fastest is String#indexOf
     ```
+
+    然后执行：
+
+    ```
+    node index
+    ```
     
-+   `node index`
