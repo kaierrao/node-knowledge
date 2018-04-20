@@ -23,6 +23,8 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 
 ## Node 知识图谱
 
+### 准备阶段
+
 +   Node 安装与配置
     +   [搭建 Node.js 开发环境与版本控制](./搭建Node.js开发环境与版本控制)
     +   [npm 介绍与源控制](./npm介绍与源控制)
@@ -35,6 +37,9 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
     +   [调试 - console](./调试-console)
     +   [调试 - debug](./调试-debug)
     +   错误处理
+
+### 日常开发
+
 +   文件操作
     +   [文件操作 - fs](./文件操作-fs)
 +   路径
@@ -62,11 +67,16 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
     +   [进程 - child_process](./进程-child_process)
     +   [进程 - 多进程](./进程-多进程)
     +   [进程 - cluster](./进程-cluster)
-+   框架
-    +   koa
-    +   express
 +   DB 操作
     +   连接 mysql
+
+### 框架
+
++   koa
++   express
+
+### 质量
+
 +   测试
     +   TDD
     +   BDD
