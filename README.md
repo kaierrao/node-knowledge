@@ -13,8 +13,8 @@
 下面列表中，加粗部分为必须要掌握的部分。
 
 +   Node 语言环境搭建
-    +   [搭建 Node.js 开发环境](./搭建Node.js开发环境)
-    +   [npm 介绍](./npm介绍)
+    +   [搭建 Node.js 开发环境与版本控制](./搭建Node.js开发环境与版本控制)
+    +   [npm 介绍与版本控制](./npm介绍与版本控制)
     +   [node 的模块机制](./node的模块机制)
 +   Node 语言编程特点
     +   [ECMAScript 6/7](http://es6.ruanyifeng.com/)
