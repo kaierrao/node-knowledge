@@ -12,6 +12,15 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 
 [node api docs](https://nodejs.org/en/docs/)
 
+## Node.js 能做什么
+
++   服务器开发：[express](https://github.com/expressjs/express) / [koa](https://github.com/koajs/koa) 等
++   im 即时聊天：socket.io
++   前端构建工具：[webpack](https://github.com/webpack) / [gulp](https://github.com/gulpjs/gulp) / [grunt](https://github.com/gruntjs/grunt) …
++   写操作系统：[NodeOS](https://github.com/NodeOS/NodeOS)
++   命令行工具：比如 [bio](https://github.com/weidian-inc/bio-cli)
++   IDE：[vscode](https://github.com/Microsoft/vscode) / [atom](https://github.com/atom/atom) 等
+
 ## Node 知识图谱
 
 +   Node 安装与配置
@@ -64,15 +73,6 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 +   性能优化
     +   [内存控制](./内存控制)
     +   benchmark
-
-## Node 应用
-
-+   服务器开发：[express](https://github.com/expressjs/express) / [koa](https://github.com/koajs/koa) 等
-+   im 即时聊天：socket.io
-+   前端构建工具：[webpack](https://github.com/webpack) / [gulp](https://github.com/gulpjs/gulp) / [grunt](https://github.com/gruntjs/grunt) …
-+   写操作系统：[NodeOS](https://github.com/NodeOS/NodeOS)
-+   命令行工具：比如 [bio](https://github.com/weidian-inc/bio-cli)
-+   IDE：[vscode](https://github.com/Microsoft/vscode) / [atom](https://github.com/atom/atom) 等
 
 ## 参考资料
 
