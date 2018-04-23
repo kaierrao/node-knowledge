@@ -176,6 +176,23 @@ a
     })
     ```
 
++   没有被 catch 借助的 reject 会传到全局
+
+    ```js
+    const promiseD = new Promise((resolve, reject) => {
+        reject('no');
+    })
+    promiseD.then(result => {
+        console.log(result); // 永远不会执行
+    })
+    ```
+
+    输出为：
+
+    ```bash
+    (node:54530) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): no
+    ```
+
 +   不仅是 reject，抛出的异常也会被作为拒绝状态被 Promise 捕获
 
     ```js
