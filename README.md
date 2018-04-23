@@ -69,11 +69,11 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 
 ### 质量
 
++   [异常处理](./异常处理)
 +   [单元测试](./单元测试)
 +   性能优化
     +   [内存控制](./内存控制)
     +   [benchmark](./benchmark)
-+   [异常处理](./异常处理)
 
 ## 参考资料
 
