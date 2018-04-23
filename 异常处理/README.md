@@ -110,6 +110,172 @@ a
 
     也就是说，回调有可能不执行，在回调中做异常处理是不可靠的。
 
++   总结
+
+    也就是说，业务方在遇到回调函数的时候，处理异常是比较耗费精力的。而且，异常必须被处理掉，否则程序就挂了，精神负担比较大。
+
+## 对 Promise 的异常处理
+
+这里不详细解释 Promise，如需了解可查看 [异步编程](https://github.com/hoperyy/node-knowledge/tree/master/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B) 的 Promsie 部分。
+
++   简单补充下事件循环的知识
+    
+    js 事件循环分为 macrotask 和 microtask。
+
+    microtask 会被插入到每一个 macrotask 的尾部，所以 microtask 总会优先执行，哪怕 macrotask 因为 js 进程繁忙被 hung 住。
+
+    比如 setTimeout setInterval 会插入到 macrotask 中。
+
+    +   如果 promise 对象的状态是 `resolved`，那么 `then` 函数的第一个参数就会立即调入 `microtask` 中。
+
+        ```js
+        const promiseA = new Promise((resolve, reject) => {
+            resolve('ok')
+        })
+        promiseA.then(result => {
+            console.log(result) // ok
+        })
+        ```
+
+    +   如果 promise 对象的状态是 `rejected`，那么 then 函数的第二个回调会立即插入 microtask 队列。
+
+        ```js
+        const promiseB = new Promise((resolve, reject) => {
+            reject('no')
+        })
+        promiseB.then(result => {
+            console.log(result) // 永远不会执行
+        }, error => {
+            console.log(error) // no
+        })
+        ```
+
+    +   如果一直不决议，此 promise 将处于 pending 状态。
+
+        ```js
+        const promiseC = new Promise((resolve, reject) => {
+            // nothing
+        })
+        promiseC.then(result => {
+            console.log(result) // 永远不会执行
+        }, error => {
+            console.log(error) // 永远不会执行
+        })
+        ```
+
++   未捕获的 reject 会传到末尾，通过 catch 接住
+
+    ```js
+    const promiseD = new Promise((resolve, reject) => {
+        reject('no');
+    })
+    promiseD.then(result => {
+        console.log(result); // 永远不会执行
+    }).catch(error => {
+        console.log(error); // no
+    })
+    ```
+
++   不仅是 reject，抛出的异常也会被作为拒绝状态被 Promise 捕获
+
+    ```js
+    function fetch(callback) {
+        return new Promise((resolve, reject) => {
+            throw Error('用户不存在')
+        })
+    }
+
+    fetch().then(result => {
+        console.log('请求处理', result) // 永远不会执行
+    }).catch(error => {
+        console.log('请求处理异常', error) // 请求处理异常 用户不存在
+    })
+    ```
+
++   Promise 无法捕获的异常
+
+    但是，永远不要在 macrotask 队列中抛出异常，因为 macrotask 队列脱离了运行上下文环境，异常无法被当前作用域捕获。
+
+    ```js
+    function fetch(callback) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                throw Error('用户不存在') // 会被抛到全局
+            })
+        })
+    }
+
+    fetch().then(result => {
+        console.log('请求处理', result) // 永远不会执行
+    }).catch(error => {
+        console.log('请求处理异常', error) // 永远不会执行
+    })
+    ```
+
+    不过 microtask 中抛出的异常可以被捕获，说明 microtask 队列并没有离开当前作用域，我们通过以下例子来证明：
+
+    ```js
+    Promise.resolve(true).then((resolve, reject)=> {
+        throw Error('microtask 中的异常')
+    }).catch(error => {
+        console.log('捕获异常', error) // 捕获异常 Error: microtask 中的异常
+    })
+    ```
+
+    至此，Promise 的异常处理有了比较清晰的答案，只要注意在 macrotask 级别回调中使用 reject，就没有抓不住的异常。
+
+## 对 async await 的异常处理
+
++   使用 `try...catch...` 处理异常
+
+    ```js
+    function fetch(callback) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject('no');
+            })
+        })
+    }
+
+    async function main() {
+        try {
+            const result = await fetch()
+            console.log('请求处理', result); // 永远不会执行
+        } catch (error) {
+            console.log('异常', error) // 异常 no
+        }
+    }
+
+    main();
+    ```
+
++   async await 无法捕获的异常
+
+    和 Promise 中某些错误无法捕获的原因一样，这也是 await 的软肋，如：
+
+    ```js
+    function fetch(callback) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                throw Error('no');
+            })
+        })
+    }
+
+    async function main() {
+        try {
+            const result = await fetch()
+            console.log('请求处理', result); // 永远不会执行
+        } catch (error) {
+            console.log('异常', error) // 永远不会执行
+        }
+    }
+
+    main();
+    ```
+
+    错误会被直接抛向全局。
+
 ## 参考
 
 +   [Callback Promise Generator Async-Await 和异常处理的演进](https://www.jianshu.com/p/78dfb38ac3d7)
