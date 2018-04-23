@@ -204,6 +204,10 @@ Node 原生支持 Promise。
 		});
 		```
 
+### 3. generator 函数
+
+这篇文章讲的很好: http://www.ruanyifeng.com/blog/2015/05/co.html
+
 ### 3. async
 
 这篇文章讲的很好: https://cnodejs.org/topic/5640b80d3a6aa72c5e0030b6
