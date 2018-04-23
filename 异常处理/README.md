@@ -51,7 +51,9 @@ a
     at bootstrap_node.js:608:3
 ```
 
-## 对回调的异常处理
+## 对几种写法的异常处理
+
+### 对回调的异常处理
 
 +   同步回调：捕获异常较方便
 
@@ -114,7 +116,7 @@ a
 
     也就是说，业务方在遇到回调函数的时候，处理异常是比较耗费精力的。而且，异常必须被处理掉，否则程序就挂了，精神负担比较大。
 
-## 对 Promise 的异常处理
+### 对 Promise 的异常处理
 
 这里不详细解释 Promise，如需了解可查看 [异步编程](https://github.com/hoperyy/node-knowledge/tree/master/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B) 的 Promsie 部分。
 
@@ -241,7 +243,7 @@ a
 
     至此，Promise 的异常处理有了比较清晰的答案，只要注意在 macrotask 级别回调中使用 reject，就没有抓不住的异常。
 
-## 对 async await 的异常处理
+### 对 async await 的异常处理
 
 +   使用 `try...catch...` 处理异常
 
@@ -292,6 +294,116 @@ a
     ```
 
     错误会被直接抛向全局。
+
+## 简单介绍下 Decorator
+
+Decorator 中文名是装饰器，核心功能是可以通过外部包装的方式，直接修改类的内部属性。
+
+装饰器按照装饰的位置，分为 class decorator、method decorator 以及 property decorator。
+
+这里主要介绍下 class decorator、method decorator。
+
+下面的代码列举了 class decorator、method decorator。
+
+```js
+const classDecorator = (target: any) => {
+    const keys = Object.getOwnPropertyNames(target.prototype);
+
+    console.log('class decorator: ', keys);
+}
+const methodDecorator = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+    return {
+        get() {
+            console.log('method decorator: ', propertyKey);
+        }
+    }
+}
+
+@classDecorator
+export default class {
+    @methodDecorator
+    test() {}
+}
+```
+
++   `Class Decorator`
+    
+    类级别装饰器，修饰整个类，可以读取、修改类中任何属性和方法。
+
++   `Method Decorator`
+
+    方法级别装饰器，修饰某个方法，和类装饰器功能相同，但是能额外获取当前修饰的方法名。
+
+## Decorator 的业务场景：统一捕获
+
+编写一个类级别的装饰器，专门捕获 `async` 函数抛出的异常
+
+```
+const asyncClassCatchDecorator = (errorHandler?: (error?: Error) => void) => (target: any) => {
+    Object.getOwnPropertyNames(target.prototype).forEach(key => {
+        const func = target.prototype[key]
+        target.prototype[key] = async (...args: any[]) => {
+            try {
+                await func.apply(this, args)
+            } catch (error) {
+                errorHandler && errorHandler(error)
+            }
+        }
+    })
+    return target
+}
+
+const successRequest = () => Promise.resolve('a')
+const failRequest = () => Promise.reject('b')
+
+const iAsyncClass = asyncClass(error => {
+    console.log('统一异常处理', error) // 统一异常处理 b
+})
+
+@iAsyncClass
+class Action {
+    async successReuqest() {
+        const result = await successRequest()
+        console.log('successReuqest', '处理返回值', result)
+    }
+
+    async failReuqest() {
+        const result = await failRequest()
+        console.log('failReuqest', '处理返回值', result) // 永远不会执行
+    }
+
+    async allReuqest() {
+        const result1 = await successRequest()
+        console.log('allReuqest', '处理返回值 success', result1)
+        const result2 = await failRequest()
+        console.log('allReuqest', '处理返回值 success', result2) // 永远不会执行
+    }
+}
+
+const action = new Action()
+action.successReuqest()
+action.failReuqest()
+action.allReuqest()
+```
+
+也可以写方法级的装饰器，原理同上。
+
+效果就是，业务方在使用的时候，就可以放心地任意抛出错误，都会被捕获：
+
+```js
+async login(nickname, password) {
+    try {
+        const user = await userService.login(nickname, password)
+        // 跳转到首页，登录失败后不会执行到这，所以不用担心用户看到奇怪的跳转
+    } catch (error) {
+        if (error.no === -1) {
+            // 跳转到登录页
+        } else {
+            throw Error(error) // 其他错误不想管，把球继续踢走
+        }
+    }
+}
+```
 
 ## 参考
 
