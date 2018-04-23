@@ -51,7 +51,29 @@ a
     at bootstrap_node.js:608:3
 ```
 
-## 回调
+## 捕获回调函数的异常
+
++   回调函数中的异常无法捕获的情况
+
+    一般出现在异步的回调中。异步回调中，回调函数的执行栈与原函数分离开，导致外部无法抓住异常。
+
+    **我们下面用 setTimeout 模拟异步**
+
+    ```js
+    function fetch(callback) {
+        setTimeout(() => {
+            throw Error('请求失败')
+        })
+    }
+
+    try {
+        fetch(() => {
+            console.log('请求处理') // 永远不会执行
+        })
+    } catch (error) {
+        console.log('触发异常', error) // 永远不会执行
+    }
+    ```
 
 如果在回调函数中直接处理了异常，是最不明智的选择，因为业务方完全失去了对异常的控制能力。
 
