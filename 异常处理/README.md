@@ -51,9 +51,9 @@ a
     at bootstrap_node.js:608:3
 ```
 
-## 捕获回调函数的异常
+## 对回调的异常处理
 
-+   回调函数中的异常无法捕获的情况
++   回调，无法捕获的异常
 
     一般出现在异步的回调中。异步回调中，回调函数的执行栈与原函数分离开，导致外部无法抓住异常。
 
@@ -75,21 +75,20 @@ a
     }
     ```
 
-如果在回调函数中直接处理了异常，是最不明智的选择，因为业务方完全失去了对异常的控制能力。
+    输出：
 
-下方的函数 请求处理 不但永远不会执行，还无法在异常时做额外的处理，也无法阻止异常产生时笨拙的 `console.log('请求失败')` 行为。
+    ```bash
+    throw Error('请求失败')
+            ^
 
-```js
-function fetch(callback) {
-    setTimeout(() => {
-        console.log('请求失败')
-    })
-}
+    Error: 请求失败
+        at Timeout.setTimeout [as _onTimeout] (/Users/lyy/Downloads/code/github/node-knowledge/demo/index.js:3:15)
+        at ontimeout (timers.js:475:11)
+        at tryOnTimeout (timers.js:310:5)
+        at Timer.listOnTimeout (timers.js:270:5)
+    ```
 
-fetch(() => {
-    console.log('请求处理') // 永远不会执行
-})
-```
+    此时，异步回调中的错误并没有被 `catch` 到，而是抛向了外部。
 
 ## 参考
 
