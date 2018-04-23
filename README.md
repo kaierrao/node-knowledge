@@ -62,11 +62,6 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 +   [压缩 - zip](./压缩-zip)
 +   [命令行交互](./命令行交互)
 
-### 框架
-
-+   [express](./express)
-+   [koa](./koa)
-
 ### 质量
 
 +   [异常处理](./异常处理)
@@ -74,6 +69,11 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 +   性能优化
     +   [内存控制](./内存控制)
     +   [benchmark](./benchmark)
+
+### 框架
+
++   [express](./express)
++   [koa](./koa)
 
 ## 参考资料
 
