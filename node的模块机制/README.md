@@ -9,7 +9,6 @@
 +   载入文件模块（A File Module）
 +   载入文件目录模块（A Folder Module）
 +   载入node_modules里的模块
-+   自动缓存已载入模块
 
 ## 载入缓存模块
 
