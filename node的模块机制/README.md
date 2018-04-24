@@ -4,11 +4,52 @@
 
 这里列下node模块的载入及缓存机制：
 
++   载入缓存模块
 +   载入内置模块（A Core Module）
 +   载入文件模块（A File Module）
 +   载入文件目录模块（A Folder Module）
 +   载入node_modules里的模块
 +   自动缓存已载入模块
+
+## 载入缓存模块
+
+对于已加载的模块 Node 会缓存下来，而不必每次都重新搜索。下面是一个示例
+
+modA.js
+
+```js
+console.log('模块modA开始加载...')
+exports = function() {
+    console.log('Hi')
+}
+console.log('模块modA加载完毕')
+```
+
+init.js
+
+```js
+const mod1 = require('./modA');
+const mod2 = require('./modA');
+console.log(mod1 === mod2);
+```
+
+命令行执行：
+
+```
+node init.js 
+```
+
+输出如下：
+
+```
+模块modA开始加载...
+模块modA加载完毕
+true
+```
+
+可以看到虽然 require 了两次，但 modA.js 仍然只执行了一次。mod1 和 mod2 是相同的，即两个引用都指向了同一个模块对象。
+
+与前端浏览器会缓存静态脚本文件以提高性能一样，Node 对引入过的模块都会进行缓存，不论是核心模块还是文件模块，不同之处是核心模块的缓存检查会优先于文件模块的缓存检查。
 
 ## 载入内置模块
 
@@ -72,43 +113,6 @@ const myMod = require('./folder');
 
 不必担心，npm 命令可让我们很方便的去安装，卸载，更新 node_modules 目录。
 
-## 自动缓存已载入模块
-
-对于已加载的模块 Node 会缓存下来，而不必每次都重新搜索。下面是一个示例
-
-modA.js
-
-```js
-console.log('模块modA开始加载...')
-exports = function() {
-    console.log('Hi')
-}
-console.log('模块modA加载完毕')
-```
-
-init.js
-
-```js
-const mod1 = require('./modA');
-const mod2 = require('./modA');
-console.log(mod1 === mod2);
-```
-
-命令行执行：
-
-```
-node init.js 
-```
-
-输出如下：
-
-```
-模块modA开始加载...
-模块modA加载完毕
-true
-```
-
-可以看到虽然 require 了两次，但 modA.js 仍然只执行了一次。mod1 和 mod2 是相同的，即两个引用都指向了同一个模块对象。
 
 ## 其他
 
