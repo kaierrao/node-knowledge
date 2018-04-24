@@ -231,7 +231,3 @@ Node 原生支持 Promise。
 这篇文章讲的很好: https://cnodejs.org/topic/5640b80d3a6aa72c5e0030b6
 
 Node 最新版本已经支持 Async/Await，可以放心使用
-
-## 参考
-
-+	async 函数的含义和用法: http://www.ruanyifeng.com/blog/2015/04/generator.html
