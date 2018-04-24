@@ -51,6 +51,21 @@ a
     at bootstrap_node.js:608:3
 ```
 
+下面是扩展知识，浏览器端全局捕获异常：
+
+```js
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('unhandledrejection', event)
+})
+window.addEventListener('onrejectionhandled', (event) => {
+    console.error('onrejectionhandled', event)
+})
+
+window.addEventListener('error', (event) => {
+    console.error('全局捕获 error', event);
+})
+```
+
 ## 对几种写法的异常处理
 
 ### 对回调的异常处理
@@ -379,10 +394,9 @@ const methodDecorator = (target, propertyKey, descriptor) => {
 
 const propertyDecorator = (target, propertyKey) => {
     // target 为 A.prototype
-    console.log('property decorator: ', target, propertyKey);
     Object.defineProperty(target, propertyKey, {
         get() {
-            return 'Github'
+            return 'property decorator: Github'
         },
         set(value) {
             return value;
@@ -393,7 +407,7 @@ const propertyDecorator = (target, propertyKey) => {
 @classDecorator
 class A {
     @propertyDecorator
-    name = 'Jim'
+    name = 'Jim';
 
     @methodDecorator
     test() {
@@ -404,6 +418,7 @@ class A {
 const a = new A();
 
 a.test();
+a.name;
 ```
 
 ## Decorator 的业务场景：统一捕获
@@ -448,7 +463,45 @@ a.test();
 index.js:18217 全局 class 中捕获错误： Error: test 中任意抛出一个错误
 ```
 
-这样，业务中抛出的错误就在 class 层面被捕获
+这样，业务中抛出的错误就在 class 层面被捕获。
+
+进一步地，我们可以通过 decorator 为所有的 async 方法提供异常捕获：
+
+```js
+const classCatchDecorator = (errorHandler) => {
+    return (target) => {
+        // target 为 A
+        Object.getOwnPropertyNames(target.prototype).forEach((propertyKey) => {
+
+            console.log(target.prototype[propertyKey], propertyKey);
+            const oldFunc = target.prototype[propertyKey];
+
+            target.prototype[propertyKey] = async (...args) => {
+                try {
+                    await oldFunc.apply(this, args);
+                } catch (error) {
+                    errorHandler && errorHandler(error)
+                }
+            }
+        });
+    };
+}
+
+@classCatchDecorator((err) => { console.error('全局 class 中捕获错误：', err) })
+class A {
+    async test() {
+        await new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject('test 中任意抛出一个错误');
+            }, 2000);
+        });
+    }
+}
+
+const a = new A();
+
+a.test();
+```
 
 也可以写方法级的装饰器，原理同上。
 
@@ -462,7 +515,6 @@ const methodCatchDecorator = (errorHandler) => {
         return {
             get() {
                 return (...args) => {
-                    console.log('运行');
                     try {
                         oldFunc.apply(this, args);
                     } catch (error) {
