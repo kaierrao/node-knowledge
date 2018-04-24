@@ -37,7 +37,7 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
     +   [调试 - console](./调试-console)
     +   [调试 - debug](./调试-debug)
 
-### 日常开发
+### 功能模块
 
 +   [文件操作 - fs](./文件操作-fs)
 +   [路径 - path](./路径-path)
