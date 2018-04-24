@@ -333,9 +333,31 @@ Decorator 中文名是装饰器，核心功能是可以通过外部包装的方�
 
 装饰器按照装饰的位置，分为 class decorator、method decorator 以及 property decorator。
 
-```js
-import './index.less';
++   `Class Decorator`
+    
+    类级别装饰器，修饰整个类，可以读取、修改类中任何属性和方法。
 
+    装饰器中只有一个参数 `target`，表示类本身。
+
++   `Method Decorator`
+
+    方法级别装饰器，修饰某个方法，和类装饰器功能相同，但是能额外获取当前修饰的方法名。
+
+    有三个参数：`原型 / 方法名 / 描述符`
+
+    需要返回一个描述符。
+
++   `Property Decorator`
+
+    属性级别装饰器，修饰某个属性，和类装饰器功能相同，但是能额外获取当前修饰的属性名。
+
+    有 2 个参数：`原型 / 属性名`
+
+    可以通过 `Object.defineProperty` 控制属性的读写。
+
+举例：
+
+```js
 const classDecorator = (target) => {
     // target 为 A
     console.log('class decorator: ', target.prototype);
@@ -345,6 +367,7 @@ const methodDecorator = (target, propertyKey, descriptor) => {
     // target 为 A.prototype
     console.log('method decorator: ', target, propertyKey, descriptor);
 
+    // 方法装饰器，返回一个描述符
     return {
         get() {
             return () => {
@@ -382,28 +405,6 @@ const a = new A();
 
 a.test();
 ```
-
-+   `Class Decorator`
-    
-    类级别装饰器，修饰整个类，可以读取、修改类中任何属性和方法。
-
-    装饰器中只有一个参数 `target`，表示类本身。
-
-+   `Method Decorator`
-
-    方法级别装饰器，修饰某个方法，和类装饰器功能相同，但是能额外获取当前修饰的方法名。
-
-    有三个参数：`原型 / 方法名 / 描述符`
-
-    可以返回一个描述符控制方法的读写。
-
-+   `Property Decorator`
-
-    属性级别装饰器，修饰某个属性，和类装饰器功能相同，但是能额外获取当前修饰的属性名。
-
-    有 2 个参数：`原型 / 属性名`
-
-    可以通过 `Object.defineProperty` 控制属性的读写。
 
 ## Decorator 的业务场景：统一捕获
 
