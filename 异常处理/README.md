@@ -333,108 +333,162 @@ Decorator 中文名是装饰器，核心功能是可以通过外部包装的方�
 
 装饰器按照装饰的位置，分为 class decorator、method decorator 以及 property decorator。
 
-这里主要介绍下 class decorator、method decorator。
-
-下面的代码列举了 class decorator、method decorator。
-
 ```js
-const classDecorator = (target: any) => {
-    const keys = Object.getOwnPropertyNames(target.prototype);
+import './index.less';
 
-    console.log('class decorator: ', keys);
+const classDecorator = (target) => {
+    // target 为 A
+    console.log('class decorator: ', target.prototype);
 }
-const methodDecorator = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+
+const methodDecorator = (target, propertyKey, descriptor) => {
+    // target 为 A.prototype
+    console.log('method decorator: ', target, propertyKey, descriptor);
+
     return {
         get() {
-            console.log('method decorator: ', propertyKey);
+            return () => {
+                console.log('method get');
+            }
         }
     }
 }
 
-@classDecorator
-export default class {
-    @methodDecorator
-    test() {}
+const propertyDecorator = (target, propertyKey) => {
+    // target 为 A.prototype
+    console.log('property decorator: ', target, propertyKey);
+    Object.defineProperty(target, propertyKey, {
+        get() {
+            return 'Github'
+        },
+        set(value) {
+            return value;
+        }
+    });
 }
+
+@classDecorator
+class A {
+    @propertyDecorator
+    name = 'Jim'
+
+    @methodDecorator
+    test() {
+        console.log('test');
+    }
+}
+
+const a = new A();
+
+a.test();
 ```
 
 +   `Class Decorator`
     
     类级别装饰器，修饰整个类，可以读取、修改类中任何属性和方法。
 
+    装饰器中只有一个参数 `target`，表示类本身。
+
 +   `Method Decorator`
 
     方法级别装饰器，修饰某个方法，和类装饰器功能相同，但是能额外获取当前修饰的方法名。
 
+    有三个参数：`原型 / 方法名 / 描述符`
+
+    可以返回一个描述符控制方法的读写。
+
++   `Property Decorator`
+
+    属性级别装饰器，修饰某个属性，和类装饰器功能相同，但是能额外获取当前修饰的属性名。
+
+    有 2 个参数：`原型 / 属性名`
+
+    可以通过 `Object.defineProperty` 控制属性的读写。
+
 ## Decorator 的业务场景：统一捕获
 
-编写一个类级别的装饰器，专门捕获 `async` 函数抛出的异常
+编写一个类级别的装饰器，专门捕获方法抛出的异常
 
-```
-const asyncClassCatchDecorator = (errorHandler?: (error?: Error) => void) => (target: any) => {
-    Object.getOwnPropertyNames(target.prototype).forEach(key => {
-        const func = target.prototype[key]
-        target.prototype[key] = async (...args: any[]) => {
-            try {
-                await func.apply(this, args)
-            } catch (error) {
-                errorHandler && errorHandler(error)
+```js
+const classCatchDecorator = (errorHandler) => {
+    return (target) => {
+        // target 为 A
+        Object.getOwnPropertyNames(target.prototype).forEach((propertyKey) => {
+
+            console.log(target.prototype[propertyKey], propertyKey);
+            const oldFunc = target.prototype[propertyKey];
+
+            target.prototype[propertyKey] = (...args) => {
+                try {
+                    oldFunc.apply(this, args);
+                } catch (error) {
+                    errorHandler && errorHandler(error)
+                }
             }
-        }
-    })
-    return target
+        });
+    };
 }
 
-const successRequest = () => Promise.resolve('a')
-const failRequest = () => Promise.reject('b')
-
-const iAsyncClass = asyncClass(error => {
-    console.log('统一异常处理', error) // 统一异常处理 b
-})
-
-@iAsyncClass
-class Action {
-    async successReuqest() {
-        const result = await successRequest()
-        console.log('successReuqest', '处理返回值', result)
-    }
-
-    async failReuqest() {
-        const result = await failRequest()
-        console.log('failReuqest', '处理返回值', result) // 永远不会执行
-    }
-
-    async allReuqest() {
-        const result1 = await successRequest()
-        console.log('allReuqest', '处理返回值 success', result1)
-        const result2 = await failRequest()
-        console.log('allReuqest', '处理返回值 success', result2) // 永远不会执行
+@classCatchDecorator((err) => { console.error('全局 class 中捕获错误：', err) })
+class A {
+    test() {
+        throw Error('test 中任意抛出一个错误');
     }
 }
 
-const action = new Action()
-action.successReuqest()
-action.failReuqest()
-action.allReuqest()
+const a = new A();
+
+a.test();
 ```
+
+输出为：
+
+```
+index.js:18217 全局 class 中捕获错误： Error: test 中任意抛出一个错误
+```
+
+这样，业务中抛出的错误就在 class 层面被捕获
 
 也可以写方法级的装饰器，原理同上。
 
 效果就是，业务方在使用的时候，就可以放心地任意抛出错误，都会被捕获：
 
 ```js
-async login(nickname, password) {
-    try {
-        const user = await userService.login(nickname, password)
-        // 跳转到首页，登录失败后不会执行到这，所以不用担心用户看到奇怪的跳转
-    } catch (error) {
-        if (error.no === -1) {
-            // 跳转到登录页
-        } else {
-            throw Error(error) // 其他错误不想管，把球继续踢走
+const methodCatchDecorator = (errorHandler) => {
+    return (target, propertyKey, descriptor) => {
+        const oldFunc = descriptor.value;
+
+        return {
+            get() {
+                return (...args) => {
+                    console.log('运行');
+                    try {
+                        oldFunc.apply(this, args);
+                    } catch (error) {
+                        errorHandler && errorHandler(error)
+                    }
+                }
+            }
         }
+    };
+}
+
+class A {
+    @methodCatchDecorator((err) => { console.error('方法捕获器中捕获错误：', err) })
+    test() {
+        throw Error('test 中任意抛出一个错误');
     }
 }
+
+const a = new A();
+
+a.test();
+```
+
+输出：
+
+```
+方法捕获器中捕获错误： Error: test 中任意抛出一个错误
 ```
 
 ## 参考
