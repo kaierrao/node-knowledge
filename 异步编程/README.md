@@ -4,9 +4,19 @@ Node 将异步作为主要编程方式和设计理念。
 
 当然，随着 ES6/7 等规范在 Node 中的支持，Node 也能很好地支持同步编程。
 
-## 异步编程的几种方式
+异步编程有如下几种方式。
 
-### 1. 回调函数
++	回调函数
++	事件触发
++	Promise
++	Generator
++	async/await
+
+**异步编程的语法目标，就是怎样让它更像同步编程。**
+
+## 回调函数
+
+所谓回调函数，就是把任务的第二段单独写在一个函数里面，等到重新执行这个任务的时候，就直接调用这个函数。它的英语名字 callback，直译过来就是"重新调用"。
 
 首先，我们思考一个典型的异步编程模型，考虑这样一个题目：读取一个文件，在控制台输出这个文件内容。
 
@@ -48,7 +58,11 @@ fs.readFile('sample01.txt', 'utf8', function (err, data) {
 
 可以使用 async 和 promise 改善这段代码。
 
-### 2. Promise
+## 事件触发
+
+这里不赘述，如需了解可查看：[事件-events](../事件-events)。
+
+## Promise
 
 请注意下文中的大小写：`Promise` 代表构造函数，`promise` 代表实例。
 
@@ -204,12 +218,20 @@ Node 原生支持 Promise。
 		});
 		```
 
-### 3. generator 函数
+## generator 函数
 
-这篇文章讲的很好: http://www.ruanyifeng.com/blog/2015/05/co.html
+这几篇文章讲的很好: 
 
-### 4. async
++	Generator 函数的含义与用法: http://www.ruanyifeng.com/blog/2015/04/generator.html
++	Thunk函数的含义与用法: http://www.ruanyifeng.com/blog/2015/04/generator.html
++	co函数库的含义与用法: http://www.ruanyifeng.com/blog/2015/05/co.html
+
+## async
 
 这篇文章讲的很好: https://cnodejs.org/topic/5640b80d3a6aa72c5e0030b6
 
 Node 最新版本已经支持 Async/Await，可以放心使用
+
+## 参考
+
++	async 函数的含义和用法: http://www.ruanyifeng.com/blog/2015/04/generator.html
