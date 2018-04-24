@@ -162,6 +162,21 @@ JavaScript 开发者可以很方便地用对象的键值对来缓存东西，但
 
 todo...
 
+## 大内存应用
+
+如果不可避免地需要操作大文件，由于 Node 的内存限制，操作大文件需要小心，Node 专门为这种情况，提供了 stream 模块用于处理大文件。
+
+stream 模块是 Node 的原生模块，它继承自 EventEmitter，Node 中大多数模块都有 stream 的应用，如 `fs` 的 `createReadStream()` 和 `fs.createWriteStream()`、`process` 模块的 `stdin` 和 `stdout`等。
+
+比如：
+
+```js
+const reader = fs.createReadStream('in.txt');
+const writer = fs.createWriteStream('out.txt');
+
+reader.pipe(writer);
+```
+
 ## 参考
 
 +   《深入浅出 Node.js》
