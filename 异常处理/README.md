@@ -421,6 +421,70 @@ a.test();
 a.name;
 ```
 
+## 让 node 支持 Decorator
+
+目前 Node 各个版本还没有支持 Decorator，我们需要将其经过 webpack 编译。
+
+目录结构如下：
+
+```
+package.json
+index.js
+webpack.config.js
+```
+
++   package.json 配置
+
+    安装项目依赖
+
+    ```bash
+    npm i webpack babel-loader babel-core webpack-cli babel-plugin-transform-decorators-legacy
+    ```
+
+    配置 scripts
+
+    ```js
+    "scripts": {
+        "build": "webpack",
+        "dev": "node dist/bundle.js"
+    }
+    ```
+
++   webpack.config.js
+
+    ```js
+    const path = require('path');
+    module.exports = {
+        entry: './index.js',
+        target: 'node',
+        output: {
+            path: path.resolve(__dirname, 'dist'),
+            filename: 'bundle.js'
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    exclude: /(node_modules|bower_components)/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            plugins: ['babel-plugin-transform-decorators-legacy']
+                        }
+                    }
+                }
+            ]
+        }
+    };
+    ```
+
+配置完成，使用的时候，在 index.js 中写代码即可，运行代码可以通过:
+
++   `node dist/bundle.js`
++   `npm run dev`
+
+两者选其一即可。
+
 ## Decorator 的业务场景：统一捕获
 
 编写一个类级别的装饰器，专门捕获方法抛出的异常
