@@ -36,6 +36,7 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 +   调试
     +   [调试 - console](./调试-console)
     +   [调试 - debug](./调试-debug)
++   [node 的应用场景](./node的应用场景)
 
 ### 功能模块
 
