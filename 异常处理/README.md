@@ -429,7 +429,7 @@ a.name;
 
 ```
 package.json
-index.js
+src/index.js
 webpack.config.js
 ```
 
@@ -438,15 +438,14 @@ webpack.config.js
     安装项目依赖
 
     ```bash
-    npm i webpack babel-loader babel-core webpack-cli babel-plugin-transform-decorators-legacy
+    npm i webpack webpack-cli babel-loader babel-core babel-plugin-transform-decorators-legacy
     ```
 
     配置 scripts
 
     ```js
     "scripts": {
-        "build": "webpack",
-        "dev": "node dist/bundle.js"
+        "build": "webpack"
     }
     ```
 
@@ -455,11 +454,11 @@ webpack.config.js
     ```js
     const path = require('path');
     module.exports = {
-        entry: './index.js',
+        entry: './src/index.js',
         target: 'node',
         output: {
-            path: path.resolve(__dirname, 'dist'),
-            filename: 'bundle.js'
+            path: __dirname,
+            filename: 'index.js'
         },
         module: {
             rules: [
@@ -478,10 +477,10 @@ webpack.config.js
     };
     ```
 
-配置完成，使用的时候，在 index.js 中写代码即可，运行代码可以通过:
+配置完成，使用的时候，在 `src/index.js` 中写代码即可，
 
-+   `node dist/bundle.js`
-+   `npm run dev`
++   编译代码：`npm run build`
++   运行代码：`node index.js`
 
 两者选其一即可。
 
