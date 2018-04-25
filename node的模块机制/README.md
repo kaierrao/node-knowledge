@@ -41,8 +41,8 @@ node index.js
 输出如下：
 
 ```
-模块modA开始加载...
-模块modA加载完毕
+mod 开始加载...
+mod 加载完毕
 true
 ```
 
