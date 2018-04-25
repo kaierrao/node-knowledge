@@ -17,25 +17,25 @@
 modA.js
 
 ```js
-console.log('模块modA开始加载...')
+console.log('mod 开始加载...')
 exports = function() {
     console.log('Hi')
 }
-console.log('模块modA加载完毕')
+console.log('mod 加载完毕')
 ```
 
-init.js
+index.js
 
 ```js
-const mod1 = require('./modA');
-const mod2 = require('./modA');
+const mod1 = require('./mod');
+const mod2 = require('./mod');
 console.log(mod1 === mod2);
 ```
 
 命令行执行：
 
 ```
-node init.js 
+node index.js 
 ```
 
 输出如下：
