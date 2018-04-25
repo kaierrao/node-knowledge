@@ -86,7 +86,7 @@ Node 原生支持 Promise。
 	TypeError: Promise resolver undefined is not a function
 	```
 
-	**该回调函数会立即执行**
+	**该回调函数会立即执行。**
 
 	`Promise` 回调函数，可以：
 
@@ -140,6 +140,11 @@ Node 原生支持 Promise。
 	```
 
 	**如果执行 then 之前，实例的状态已经是 fulfilled/rejected，则执行 then 的时候，回调函数会立刻执行**
+
+	`then` 方法需要 `return` 传递信息：
+
+	+	可以返回一个普通数据
+	+	也可以返回一个新的 `promsie` 实例，后续的链式调用会基于该实例的状态运行
 
 +	链式调用
 
