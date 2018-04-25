@@ -122,6 +122,28 @@ npm publish
 
 部分情况下可能需要联系源管理员添加发布权限。
 
+## npm scripts
+
+package.json 中有个字段 `scripts`，用于开发者自定义脚本，比如：
+
+```js
+"scripts": {
+    "dev": "node index.js"
+}
+```
+
+执行 `npm run <script>`，可以执行 shell 命令，比如上面的：`npm run dev`
+
+另外，scripts 内部可以临时使用 node_modules 中的命令行安装包，比如通过 `npm i webpack-cli` 安装了 webpack 命令行，那么就可以在 scripts 中使用 webpack 命令了。
+
+````js
+"scripts": {
+    "build": "webpack index.js"
+}
+```
+
+`npm run build` 命令会执行 `webpack index.js`。
+
 ## 管理 npm 源
 
 npm 默认使用官方源：https://registry.npmjs.org/
@@ -130,7 +152,9 @@ npm 通过该源下载各种依赖包。
 
 npm 源可以重新设定，以满足日常需要。
 
-日常使用中，使用 nrm 管理 npm 源：
+设置方式：`npm set registry <registry>`，比如设置为淘宝源：`npm set registry https://registry.npm.taobao.org`
+
+但这种方式不是很方便。日常使用中，我们使用 nrm 管理 npm 源：
 
 ```
 npm install nrm -g
