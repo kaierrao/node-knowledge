@@ -482,8 +482,6 @@ webpack.config.js
 +   编译代码：`npm run build`
 +   运行代码：`node index.js`
 
-两者选其一即可。
-
 ## Decorator 的业务场景：统一捕获
 
 编写一个类级别的装饰器，专门捕获方法抛出的异常
