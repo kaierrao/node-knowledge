@@ -136,7 +136,7 @@ package.json 中有个字段 `scripts`，用于开发者自定义脚本，比如
 
 另外，scripts 内部可以临时使用 node_modules 中的命令行安装包，比如通过 `npm i webpack-cli` 安装了 webpack 命令行，那么就可以在 scripts 中使用 webpack 命令了。
 
-````js
+```js
 "scripts": {
     "build": "webpack index.js"
 }
