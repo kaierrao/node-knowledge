@@ -53,7 +53,7 @@ console.log(2);
 +   `process.nextTick(callback)` 将 callback 放到 node 事件循环的 下一个 tick 里
 +   `process.nextTick(callback)` 比 `setTimetout(callback, 0)` 性能高
 
-（TODO：事件循环相关知识）
+资料：[./事件循环](../事件循环)
 
 ## 获取命令行参数
 
