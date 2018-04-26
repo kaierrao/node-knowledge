@@ -78,7 +78,7 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 
 ### 其他
 
-+   [./事件循环](./事件循环)
++   [事件循环](./事件循环)
 
 ## 参考资料
 
