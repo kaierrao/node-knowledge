@@ -82,3 +82,4 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 +   [《深入浅出 Node.JS》](https://www.amazon.cn/dp/B00GOM5IL4/ref=sr_1_1?ie=UTF8&qid=1523943449&sr=8-1&keywords=%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAnode.js)
 +   [Node.js 包教不包会](https://github.com/alsotang/node-lessons)
 +   [Node learning guide](https://github.com/chyingp/nodejs-learning-guide/blob/master/README.md)
++   [狼叔：如何正确的学习Node.js](https://cnodejs.org/topic/5ab3166be7b166bb7b9eccf7)
