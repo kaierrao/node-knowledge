@@ -1,3 +1,5 @@
+事件循环正在学习中，文中描述可能有误。
+
 ## 浏览器的 Event Loop
 
 不同的任务源会被分配到不同的 Task 队列中，任务源可以分为 微任务（microtask） 和 宏任务（macrotask）。在 ES6 规范中，microtask 称为 jobs，macrotask 称为 task。
