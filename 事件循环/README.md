@@ -19,6 +19,8 @@
 
 通过上述的  Event loop 顺序可知，如果宏任务中的异步代码有大量的计算并且需要操作 DOM 的话，为了更快的 界面响应，我们可以把操作 DOM 放入微任务中。
 
+![](imgs/2018-05-04-15-00-03.png)
+
 ## Node 的事件循环
 
 ### 循环阶段
@@ -198,3 +200,8 @@ process.nextTick(() => {
     第一种情况（`timer1 promise1 timer2 promise2`）的原因可能是第一个定时器到期后（1ms 后）Event Loop 进入，执行 timer 阶段等，然后下一个定时器进入下一个 Event Loop 循环。
 
     第二种情况（`timer1 timer2 promsie1 promise2`）的原因可能是两个定时器到期后的某个事件循环开始，执行 timer 等阶段。
+
+## 参考文章
+
++   https://juejin.im/post/5ab4794b5188255583592bd4
++   https://juejin.im/post/5ab5012951882555712c4d3c
