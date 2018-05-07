@@ -240,4 +240,23 @@ Node 原生支持 Promise。
 
 这篇文章讲的很好: https://cnodejs.org/topic/5640b80d3a6aa72c5e0030b6
 
+举例：
+
+```js
+const sleep = () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log('done');
+            resolve();
+        }, 3000);
+    });
+};
+
+const run = async () => {
+    await sleep();
+}
+
+run();
+```
+
 Node 最新版本已经支持 Async/Await，可以放心使用
