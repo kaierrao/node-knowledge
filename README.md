@@ -30,7 +30,7 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
     +   [npm 介绍与源控制](./npm介绍与源控制)
     +   [node 的模块机制](./node的模块机制)
 +   Node 语言编程特点
-    +   [ECMAScript 6/7](http://es6.ruanyifeng.com/)
+    +   [ECMAScript 6 / 7](http://es6.ruanyifeng.com/)
     +   OO（面向对象）
     +   [异步编程](./异步编程)
 +   调试
