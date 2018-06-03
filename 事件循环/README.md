@@ -49,6 +49,8 @@
    └───────────────────────┘
 ```
 
+![](imgs/2018-06-03-12-17-34.png)
+
 +   timer 阶段
 
     timers 阶段会执行 `setTimeout` 和 `setInterval`。
@@ -88,8 +90,6 @@
 +   close callbacks
 
     close callbacks 阶段执行 close 事件
-
-![](imgs/2018-06-03-12-17-34.png)
 
 ### 其他
 
