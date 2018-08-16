@@ -123,3 +123,4 @@ fs.createReadStream('./sample.txt').pipe(process.stdout);
 
 +   https://nodejs.org/api/stream.html
 +   https://github.com/chyingp/nodejs-learning-guide/blob/master/%E6%A8%A1%E5%9D%97/stream.md
++   (推荐)https://www.cnblogs.com/dolphinX/p/6279805.html
