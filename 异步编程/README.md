@@ -228,6 +228,16 @@ Node 原生支持 Promise。
 		});
 		```
 
++	实现
+
+    https://juejin.im/post/5ab20c58f265da23a228fe0f
+
+    +   resolve 和 reject 是内部定义的函数，但是会交给用户执行，用户可能同步或异步执行
+    +   `resolvePromise`
+
+        +   `promise2` 的状态决定于 `x`（可能是普通值或 promsie），因此在递归操作中会继续向下传递 `resolve / reject`
+        +   需要防止多次调用 `resolve / reject`
+
 ## generator 函数
 
 这几篇文章讲的很好: 
