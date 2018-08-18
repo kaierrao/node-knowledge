@@ -431,6 +431,17 @@ Node 原生支持 Promise。
 			return this.then(null, callback);
 		};
 
+		MyPromise.deferred = function() {
+			const dfd = {};
+
+			dfd.promise = new MyPromise(function(resolve, reject) {
+				dfd.resolve = resolve;
+				dfd.reject = reject;
+			});
+
+			return dfd;
+		};
+
 		MyPromsie.all = function(promises) {
 			const result = [];
 			const length = promises.length;
