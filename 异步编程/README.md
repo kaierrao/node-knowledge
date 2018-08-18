@@ -232,11 +232,258 @@ Node 原生支持 Promise。
 
     https://juejin.im/post/5ab20c58f265da23a228fe0f
 
-    +   resolve 和 reject 是内部定义的函数，但是会交给用户执行，用户可能同步或异步执行
-    +   `resolvePromise`
+	+	实现思路
 
-        +   `promise2` 的状态决定于 `x`（可能是普通值或 promsie），因此在递归操作中会继续向下传递 `resolve / reject`
-        +   需要防止多次调用 `resolve / reject`
+		+	初始化各种值：`_this.value / _this.status / _this.reason`
+		+	`executor` 会立即执行
+		+	处理同步的 promise：`then` 方法能够处理 `resolved / rejected` 的状态
+		+	处理异步的 promise
+			+	初始化队列 `_this.onResolvedCallbacks / _this.onRejectedCallbacks`
+			+	`then` 中处理 `pending` 状态，向队列添加处理函数
+			+	`resolve / reject` 中执行队列
+		+	处理 `executor` 报错的情况
+		+	处理链式调用，返回 promise2
+			+	promise2 有自己的 `resolve / reject` 变更状态的方法，和之前的 `resolve / reject` 相互隔离
+			+	`promise2` 的状态管理
+				+	`then` 两个回调方法里，任意一个方法执行报错，`promise2` 的状态就是 `rejected`
+				+	否则再根据两个函数其中之一的返回值，决定 `promise2` 的状态
+			
+					如果返回值是普通值，则直接是 resolve 状态。
+
+					如果返回值是 promise，则 promise2 的状态取决于该 promise 的状态，并且依次向深处递归，**最深处的 promise 决定 promise2 的最终状态。**
+
+					以上动作封装在 `resolvePromise()` 中。
+
+				+	由此可知，promise 的 `then` 的 `onFulfilled(value)` 中 value 一定是一个普通值
+
+	+	实现的注意点
+
+		+   resolve 和 reject 是内部定义的函数，但是会交给用户执行，用户可能同步或异步执行
+		+   `resolvePromise`
+
+			+   `promise2` 的状态决定于 `x`（可能是普通值或 promsie），因此在递归操作中会继续向下传递 `resolve / reject`
+			+   需要防止多次调用 `resolve / reject`
+
+	+	实现代码
+
+		```javascript
+		function MyPromsie(executor) {
+			const undefined = void 0;
+			const _this = this;
+
+			// 初始化
+			_this.value = undefined;
+			_this.reason = undefined;
+			_this.status = 'pending';
+
+			_this.onFulfilledCallbacks = [];
+			_this.onRejectedCallbacks = [];
+
+			// 改变状态到 resolved
+			function resolve(value) {
+				if (_this.status === 'pending') {
+					_this.value = value;
+					_this.status = 'resolved';
+
+					// flush queue
+					_this.onFulfilledCallbacks.forEach(function (fn) {
+						fn();
+					});
+				}
+			}
+
+			// 改变状态到 rejected
+			function reject(reason) {
+				if (_this.status === 'pending') {
+					_this.reason = reason;
+					_this.status = 'rejected';
+
+					console.log('promise rejected!');
+
+					// flush queue
+					_this.onRejectedCallbacks.forEach(function (fn) {
+						fn();
+					});
+				}
+			}
+
+			try {
+				executor(resolve, reject);
+			} catch(err) {
+				reject(err);
+			}
+		}
+
+		MyPromsie.prototype.then = function(onFulfilled, onRejected) {
+			const _this = this;
+			let promise2;
+
+			if (_this.status === 'resolved') {
+				promise2 = new Promise(function(resolve, reject) {
+					try {
+						const x = onFulfilled(_this.value);
+						resolvePromise(promise2, x, resolve, reject);
+
+					} catch(err) {
+						reject(err);
+					}
+				});
+			}
+
+			if (_this.status === 'rejected') {
+				promise2 = new Promise(function (resolve, reject) {
+					try {
+						const x = onRejected(_this.reason);
+
+					} catch (err) {
+						reject(err);
+					}
+				});
+			}
+
+			if (_this.status === 'pending') {
+				promise2 = new Promise(function(resolve, reject) {
+					if (typeof onFulfilled === 'function') {
+						_this.onFulfilledCallbacks.push(function () {
+							try {
+								const x = onFulfilled(_this.value);
+								resolvePromise(promise2, x, resolve, reject);
+							} catch(err) {
+								reject(err);
+							}
+						});
+					}
+
+					if (typeof onRejected === 'function') {
+						_this.onRejectedCallbacks.push(function () {
+							try {
+								const x = onRejected(_this.value);
+								resolvePromise(promise2, x, resolve, reject);
+							} catch(err) {
+								reject(err);
+							}
+						});
+					}
+				});
+			}
+
+			return promsie2;
+		};
+
+		function resolvePromise(promise2, x, promise2Resolve, promsie2Reject) {
+			// 如果返回值就是 promise2，指出重复引用
+			if (promise2 === x) {
+				promsie2Reject(new TypeError('循环引用'));
+				return;
+			}
+
+			// 防止重复调用
+			let called = false;
+
+			if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
+				const then = x.then;
+				if (typeof then === 'function') {
+					try {
+						then.call(x, function(y) {
+							if (called) {
+								return;
+							}
+
+							called = true;
+
+							// 不知道 y 的类型，因此需要重新走一遍各种判断逻辑
+							resolvePromise(promise2, y, promise2Resolve, promsie2Reject);
+						}, function(err) {
+							if (called) {
+								return;
+							}
+
+							called = true;
+							promsie2Reject(err);
+						});
+					} catch(err) {
+						if (called) {
+							return;
+						}
+
+						called = true;
+						promsie2Reject(err);
+					}
+				} else {
+					if (called) {
+						return;
+					}
+
+					called = true;
+					promise2Resolve(x);
+				}
+			} else {
+				if (called) {
+					return;
+				}
+
+				called = true;
+				promise2Resolve(x);
+			}
+		}
+
+		MyPromise.prorotype.catch = function(callback) {
+			return this.then(null, callback);
+		};
+
+		MyPromsie.all = function(promises) {
+			const result = [];
+			const length = promises.length;
+			let count = 0;
+
+			return new MyPromise(funtion(resolve, reject) {
+				promises.forEach(function (promsie) {
+					promise.then(function (value) {
+						count++;
+
+						result.push(value);
+
+						if (count === length) {
+							resolve(result);
+						}
+					}, reject);
+				});
+			});
+		};
+
+		MyPromise.race = function(promises) {
+			return new MyPromise(function(resolve, reject) {
+				promsies.forEach(function(promsie) {
+					promise.then(resolve, reject);
+				});
+			});
+		};
+
+		MyPromise.resolve = function(value) {
+			return new MyPromise(function(resolve, reject) {
+				resolve(value);
+			});
+		};
+
+		MyPromise.reject = function (err) {
+			return new MyPromise(function (resolve, reject) {
+				reject(err);
+			});
+		};
+
+		// test
+		let promise = new MyPromsie(function(resolve, reject) {
+			setTimeout(() => {
+				resolve(1);
+			}, 1000);
+		});
+
+		promise.then(function(value) {
+			console.log('resolved: ', value);
+		}, function(reason) {
+			console.log('rejected: ', reason);
+		});
+		```
 
 ## generator 函数
 
