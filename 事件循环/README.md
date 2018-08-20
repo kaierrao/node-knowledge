@@ -29,7 +29,7 @@
 ### 循环阶段
 
 ```
-┌───────────────────────┐
+   ┌───────────────────────┐
 ┌─>│        timers         │
 │  └──────────┬────────────┘
 │  ┌──────────┴────────────┐
@@ -211,3 +211,4 @@ process.nextTick(() => {
 +   https://acemood.github.io/2016/02/01/event-loop-in-javascript/
 +   https://juejin.im/post/5ab4794b5188255583592bd4
 +   https://juejin.im/post/5ab5012951882555712c4d3c
++   https://juejin.im/post/5b7a077a6fb9a019c476e51c
