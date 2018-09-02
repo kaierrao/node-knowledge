@@ -240,7 +240,7 @@ class RandomNumberStream extends Readable {
 }
 
 const rs = new RandomNumberStream(100);
-const os = new WriteStream({
+const ws = new WriteStream({
     highWaterMark: 8
 });
 
