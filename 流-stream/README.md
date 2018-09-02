@@ -161,7 +161,7 @@ const Writable = require('stream').Writable;
 +   自定义 Writable Stream
 
     ```javascript
-    class OutStream extends Writable {
+    class WriteStream extends Writable {
         _write(chunk, enc, done) {
             process.stdout.write(chunk.toString().toUpperCase());
             setTimeout(done, 1000);
@@ -210,7 +210,7 @@ const Writable = require('stream').Writable;
 const Writable = require('stream').Writable;
 const Readable = require('stream').Readable;
 
-class OutStream extends Writable {
+class WriteStream extends Writable {
     _write(chunk, enc, done) {
         process.stdout.write(chunk.toString().toUpperCase());
         setTimeout(done, 1000);
@@ -240,19 +240,19 @@ class RandomNumberStream extends Readable {
 }
 
 const rs = new RandomNumberStream(100);
-const os = new OutStream({
+const os = new WriteStream({
     highWaterMark: 8
 });
 
 rs.on('data', (chunk) => {
     console.log('end');
-    if (os.write(chunk) === false) {
+    if (ws.write(chunk) === false) {
         console.log('pause');
         rs.pause();
     }
 });
 
-os.on('drain', () => {
+ws.on('drain', () => {
     console.log('drain');
     rs.resume();
 });
