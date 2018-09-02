@@ -45,6 +45,7 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 +   [流 - stream](./流-stream)
 +   [工具 - util](./工具-util)
 +   [事件 - events](./事件-events)
++   [gzip / ungzip](./gzip-ungzip)
 +   网络
     +   [网络编程 - tcp](./网络编程-tcp)
     +   [网络编程 - udp](./网络编程-udp)
