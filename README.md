@@ -88,6 +88,9 @@ Node.js 建立在 [Chrome V8 JavaScript](https://developers.google.com/v8/)  引
 +   [Node.js 包教不包会](https://github.com/alsotang/node-lessons)
 +   [Node learning guide](https://github.com/chyingp/nodejs-learning-guide/blob/master/README.md)
 +   [狼叔：如何正确的学习Node.js](https://github.com/i5ting/How-to-learn-node-correctly)
++   Node 状态码
+    +   https://amery2010.gitbooks.io/nodejs-api-doc-cn/process/exit_codes.html
+    +   http://www.runoob.com/nodejs/nodejs-global-object.html
 
 ## LICENSE
 
