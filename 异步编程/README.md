@@ -110,7 +110,7 @@ Node 原生支持 Promise。
 	接上面的代码
 
 	```
-	promsie.then((data) => { // 上面的 resolve 方法会将参数传进成功的回调
+	promise.then((data) => { // 上面的 resolve 方法会将参数传进成功的回调
 
 	}, (err) => { // // 上面的 reject 方法会将失败的信息传进失败的回调
 
@@ -144,7 +144,7 @@ Node 原生支持 Promise。
 	`then` 的回调方法需要 `return` 传递信息：
 
 	+	可以返回一个普通数据
-	+	也可以返回一个新的 `promsie` 实例，后续的链式调用会基于该实例的状态运行
+	+	也可以返回一个新的 `promise` 实例，后续的链式调用会基于该实例的状态运行
 
 +	链式调用
 
@@ -153,7 +153,7 @@ Node 原生支持 Promise。
 	举例：
 
 	```javascript
-	promsie.then((num) => {
+	promise.then((num) => {
 			return num
 		}, (num) => {
 			return num
@@ -170,27 +170,40 @@ Node 原生支持 Promise。
 
 		catch 方法等同于 `.then(null, rejectCallback)`，可以直接指定失败的回调（支持接收上一个 then 发生的错误）。
 
-	+	`Promsie.all()` 方法
+	+	`Promise.all()` 方法
 
-		这是个很有用的方法，可以统一处理多个 Promsie，原理是将多个 Promise 实例包装成一个 Promsie 实例。
+		这是个很有用的方法，可以统一处理多个 Promise，原理是将多个 Promise 实例包装成一个 Promise 实例。
 
 		举例：
 
 		```
-		const promsie1 = new Promsie((resolve, reject) => {});
-		const promsie2 = new Promsie((resolve, reject) => {});
-		const promsie3 = new Promsie((resolve, reject) => {});
+		const promise1 = new Promise((resolve, reject) => { 
+			setTimeout(() => {
+				resolve(1);
+			}, 1000);
+		});
+		const promise2 = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(2);
+			}, 2000);
+		});
+		const promise3 = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(3);
+			}, 3000);
+		});
 
-		const promsie = Promsie.all([promise1, promise2, promise3]);
+		const promise = Promise.all([promise1, promise2, promise3]);
 
-		promsie.then((data) => {
+		promise.then((data) => {
 			// 都成功，则成功
+			console.log(data); // [1, 2, 3]
 		}, (err) => {
 			// 只要有一个失败，则失败
 		});
 		```
 
-	+	`Promsie.race()` 方法
+	+	`Promise.race()` 方法
 
 		与 all 方法类似，也可以将多个 Promise 实例包装成一个新的 Promise 实例。
 		
@@ -201,7 +214,7 @@ Node 原生支持 Promise。
 		可以生成一个成功态的 promise。
 
 		```javascript
-		const promsie = Promise.resolve('成功')
+		const promise = Promise.resolve('成功')
 		```
 
 		相当于
@@ -217,7 +230,7 @@ Node 原生支持 Promise。
 		可以生成一个失败态的 promise。
 
 		```javascript
-		const promsie = Promise.reject('出错了')
+		const promise = Promise.reject('出错了')
 		```
 
 		相当于
@@ -261,13 +274,13 @@ Node 原生支持 Promise。
 		+   resolve 和 reject 是内部定义的函数，但是会交给用户执行，用户可能同步或异步执行
 		+   `resolvePromise`
 
-			+   `promise2` 的状态决定于 `x`（可能是普通值或 promsie），因此在递归操作中会继续向下传递 `resolve / reject`
+			+   `promise2` 的状态决定于 `x`（可能是普通值或 promise），因此在递归操作中会继续向下传递 `resolve / reject`
 			+   需要防止多次调用 `resolve / reject`
 
 	+	实现代码
 
 		```javascript
-		function MyPromsie(executor) {
+		function MyPromise(executor) {
 			const undefined = void 0;
 			const _this = this;
 
@@ -314,7 +327,7 @@ Node 原生支持 Promise。
 			}
 		}
 
-		MyPromsie.prototype.then = function(onFulfilled, onRejected) {
+		MyPromise.prototype.then = function(onFulfilled, onRejected) {
 			const _this = this;
 			let promise2;
 
@@ -367,13 +380,13 @@ Node 原生支持 Promise。
 				});
 			}
 
-			return promsie2;
+			return promise2;
 		};
 
-		function resolvePromise(promise2, x, promise2Resolve, promsie2Reject) {
+		function resolvePromise(promise2, x, promise2Resolve, promise2Reject) {
 			// 如果返回值就是 promise2，指出重复引用
 			if (promise2 === x) {
-				promsie2Reject(new TypeError('循环引用'));
+				promise2Reject(new TypeError('循环引用'));
 				return;
 			}
 
@@ -392,14 +405,14 @@ Node 原生支持 Promise。
 							called = true;
 
 							// 不知道 y 的类型，因此需要重新走一遍各种判断逻辑
-							resolvePromise(promise2, y, promise2Resolve, promsie2Reject);
+							resolvePromise(promise2, y, promise2Resolve, promise2Reject);
 						}, function(err) {
 							if (called) {
 								return;
 							}
 
 							called = true;
-							promsie2Reject(err);
+							promise2Reject(err);
 						});
 					} catch(err) {
 						if (called) {
@@ -407,7 +420,7 @@ Node 原生支持 Promise。
 						}
 
 						called = true;
-						promsie2Reject(err);
+						promise2Reject(err);
 					}
 				} else {
 					if (called) {
@@ -442,13 +455,13 @@ Node 原生支持 Promise。
 			return dfd;
 		};
 
-		MyPromsie.all = function(promises) {
+		MyPromise.all = function(promises) {
 			const result = [];
 			const length = promises.length;
 			let count = 0;
 
 			return new MyPromise(funtion(resolve, reject) {
-				promises.forEach(function (promsie) {
+				promises.forEach(function (promise) {
 					promise.then(function (value) {
 						count++;
 
@@ -464,7 +477,7 @@ Node 原生支持 Promise。
 
 		MyPromise.race = function(promises) {
 			return new MyPromise(function(resolve, reject) {
-				promsies.forEach(function(promsie) {
+				promises.forEach(function(promise) {
 					promise.then(resolve, reject);
 				});
 			});
@@ -483,7 +496,7 @@ Node 原生支持 Promise。
 		};
 
 		// test
-		let promise = new MyPromsie(function(resolve, reject) {
+		let promise = new MyPromise(function(resolve, reject) {
 			setTimeout(() => {
 				resolve(1);
 			}, 1000);
