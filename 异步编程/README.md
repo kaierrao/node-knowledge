@@ -108,7 +108,9 @@ Node 原生支持 Promise。
 +	promise 中的数据传递
 
 	+	promise 实例到 `then/catch/...`，通过 `resolve / reject`
-	+	`then` 到后面的链路，通过 `return 普通值 / return promise`
+	+	`then` 到后面的链路，通过 `return`
+	
+		`return 普通值 / return promise`
 
 +	then 方法
 
