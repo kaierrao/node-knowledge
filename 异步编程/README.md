@@ -110,11 +110,10 @@ Node 原生支持 Promise。
 	接上面的代码
 
 	```
-	promise.then((data) => { // 上面的 resolve 方法会将参数传进成功的回调
-
-	}, (err) => { // // 上面的 reject 方法会将失败的信息传进失败的回调
-
-	});
+	promise.then(
+		(data) => {}, // 上面的 resolve 方法会将参数传进成功的回调
+		(err) => {} // // 上面的 reject 方法会将失败的信息传进失败的回调
+	);
 	```
 
 	举例：
