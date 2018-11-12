@@ -547,4 +547,4 @@ const run = async () => {
 run();
 ```
 
-Node 最新版本已经支持 Async/Await，可以放心使用
+Node 最新版本已经支持 `Async/Await`，可以放心使用
