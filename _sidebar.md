@@ -1,3 +1,0 @@
-+ Node-Knowledge
-  + A
-  + B
