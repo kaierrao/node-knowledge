@@ -608,3 +608,4 @@ a.test();
 ## 参考
 
 +   [Callback Promise Generator Async-Await 和异常处理的演进](https://www.jianshu.com/p/78dfb38ac3d7)
++   [JavaScript 错误处理机制](http://javascript.ruanyifeng.com/grammar/error.html)
