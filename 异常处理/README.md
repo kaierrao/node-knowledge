@@ -609,3 +609,4 @@ a.test();
 
 +   [Callback Promise Generator Async-Await 和异常处理的演进](https://www.jianshu.com/p/78dfb38ac3d7)
 +   [JavaScript 错误处理机制](http://javascript.ruanyifeng.com/grammar/error.html)
++   [Node 官网关于 unhandledException/unhandledRejection 的描述](http://nodejs.cn/api/process.html#process_event_uncaughtexception)
