@@ -377,7 +377,7 @@ Node 原生支持 Promise。
 					if (typeof onRejected === 'function') {
 						_this.onRejectedCallbacks.push(function () {
 							try {
-								const x = onRejected(_this.value);
+								const x = onRejected(_this.reason);
 								resolvePromise(promise2, x, resolve, reject);
 							} catch(err) {
 								reject(err);
