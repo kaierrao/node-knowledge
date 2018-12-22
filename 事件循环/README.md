@@ -2,27 +2,7 @@
 
 ## 浏览器的 Event Loop
 
-不同的任务源会被分配到不同的 Task 队列中，任务源可以分为 微任务（microtask） 和 宏任务（macrotask）。在 ES6 规范中，microtask 称为 jobs，macrotask 称为 task。
-
-+   微任务包括 `process.nextTick`，`promise`，`Object.observe`，`MutationObserver`
-+   宏任务包括 `script`，`setTimeout`，`setInterval`，`setImmediate`，`I/O`，`UI rendering`
-
-很多人有个误区，认为微任务快于宏任务，其实是错误的。因为宏任务中包括了 script ，浏览器会先执行一个宏任务，接下来有异步代码的话就先执行微任务。
-
-所以正确的一次 Event loop 顺序是这样的：
-
-+   执行主栈
-+   执行所有微任务
-+   执行一个宏任务
-+   执行所有微任务
-+   循环上面两步，直到任务队列为空
-+   必要的话渲染 UI
-
-通过上述的  Event loop 顺序可知，如果宏任务中的异步代码有大量的计算并且需要操作 DOM 的话，为了更快的 界面响应，我们可以把操作 DOM 放入微任务中。
-
-![](imgs/2018-06-03-12-16-38.png)
-
-![](imgs/2018-05-04-15-00-03.png)
+https://juejin.im/book/5b936540f265da0a9624b04b/section/5bb1815c6fb9a05d2d0233ad
 
 ## Node 的事件循环
 
