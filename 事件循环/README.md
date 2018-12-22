@@ -184,7 +184,7 @@ process.nextTick(() => {
 
     第一种情况（`timer1 promise1 timer2 promise2`）的原因可能是第一个定时器到期后（1ms 后）Event Loop 进入，执行 timer 阶段等，然后下一个定时器进入下一个 Event Loop 循环。
 
-    第二种情况（`timer1 timer2 promsie1 promise2`）的原因可能是两个定时器到期后的某个事件循环开始，执行 timer 等阶段。
+    第二种情况（`timer1 timer2 promsie1 promise2`）的原因可能是两个定时器到期后的事件循环开始，执行 timer 等阶段。
 
 ## 参考文章
 
