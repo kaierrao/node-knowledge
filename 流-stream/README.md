@@ -296,3 +296,4 @@ const Duplex = require('stream').Duplex;
 +   https://nodejs.org/api/stream.html
 +   https://github.com/chyingp/nodejs-learning-guide/blob/master/%E6%A8%A1%E5%9D%97/stream.md
 +   (推荐)https://www.cnblogs.com/dolphinX/p/6279805.html
++   http://taobaofed.org/blog/2017/08/31/nodejs-stream/
