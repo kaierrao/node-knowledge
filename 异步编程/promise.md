@@ -1,3 +1,10 @@
+## promise 的实现思路
+
++   `resolve / reject` 做两件事：1. 更新状态；2. flush 注册的各种回调
++   `then` 返回一个新的 promsie2，下面的逻辑就是，promise2 的状态取决于
+    +   如果 x 是普通值，resolve
+    +   如果 x 是另一个 promise，promise2 的状态取决于 x 的状态
+
 ## 第一步
 
 ```js
