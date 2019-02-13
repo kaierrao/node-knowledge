@@ -91,7 +91,7 @@ Node 原生支持 Promise。
 	`Promise` 回调函数，可以：
 
 	+	没有 `return`，通过 `resolve` 发送信息
-	+	`return` 一个 `promise` 实例，后文的 `then` 会基于它的状态运行
+	+	`return/resolve` 一个 `promise` 实例，后文的 `then` 会基于它的状态运行
 
 +	promise 的状态
 
