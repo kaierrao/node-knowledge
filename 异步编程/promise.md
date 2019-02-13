@@ -69,32 +69,34 @@ Promise.prototype.then = function(onFulfilled, onRejected) {
 
 ```js
 function Promise(executor) {
-    const _this = this;
-    
-    _this.status = 'pending';
-    _this.value = undefined;
-    _this.reason = undefined;
+    const undefined = void 0;
 
-    _this.onFulfilledCallbacks = [];
-    _this.onRejectedCallbacks = [];
+    this.status = 'pending';
+    this.value = undefined;
+    this.reason = undefined;
+
+    this.onFulfilledCallbacks = [];
+    this.onRejectedCallbacks = [];
 
     function resolve(value) {
-        _this.status = 'resolved';
-        _this.value = value;
+        this.status = 'resolved';
+        this.value = value;
 
-        _this.onFulfilledCallbacks.forEach(fn => {
+        this.onFulfilledCallbacks.forEach(fn => {
             fn();
         });
     }
 
     function reject(reason) {
-        _this.status = 'rejected';
-        _this.reason = reason;
+        this.status = 'rejected';
+        this.reason = reason;
 
-        _this.onRejectedCallbacks.forEach(fn => {
+        this.onRejectedCallbacks.forEach(fn => {
             fn();
         });
     }
+
+    let rt;
 
     try {
         executor(resolve, reject);
@@ -103,31 +105,25 @@ function Promise(executor) {
     }
 }
 
-Promise.prototype.then = function(onFulfilled, onRejected) {
-    const _this = this;
+Promise.prototype.then = (onResolved, onRejected) => {
     let promise2;
 
-    if (_this.status === 'resolved') {
+    if (this.status === 'resolved') {
         promise2 = new Promise((resolve, reject) => {
-            // 1. onFulfilled 需要执行
-            // 2. 返回的新 promise 的状态由 onFulfilled 的执行结果决定
-            // 3. 返回的新 promise 的值由 onFulfilled 的返回值决定
             try {
-                const x = onFulfilled(_this.value);
-                resolve(x);
+                const x = onResolved(this.value);
+                // resolve(x);
+                resolvePromise(promise2, x, resolve, reject);
             } catch(err) {
                 reject(err);
             }
         });
     }
 
-    if (_this.status === 'rejected') {
+    if (this.status === 'rejected') {
         promise2 = new Promise((resolve, reject) => {
-            // 1. onRejected 需要执行
-            // 2. 返回的新 promise 的状态由 onRejected 的执行结果决定
-            // 3. 返回的新 promise 的值由 onRejected 的返回值决定
             try {
-                const x = onRejected(_this.reason);
+                const x = onRejected(this.reason);
                 resolve(x);
             } catch (err) {
                 reject(err);
@@ -135,33 +131,54 @@ Promise.prototype.then = function(onFulfilled, onRejected) {
         });
     }
 
-    if (_this.status === 'pending') {
-        if (onFulfilled) {
-            promise2 = new Promise((resolve, reject) => {
-                _this.onFulfilledCallbacks.push(() => {
-                    try {
-                        const x = onFulfilled(_this.value);
-                        resolve(x);
-                    } catch(err) {
-                        reject(err);
-                    }
-                });
+    if (this.status === 'pending') {
+        promise2 = new Promise((resolve, reject) => {
+            onResolved && this.onFulfilledCallbacks.push(() => {
+                try {
+                    const x = onResolved(this.value);
+                    resolve(x);
+                } catch (err) {
+                    reject(err);
+                }
             });
-        }
-        if (onRejected) {
-            promise2 = new Promise((resolve, reject) => {
-                _this.onRejectedCallbacks.push(() => {
-                    try {
-                        const x = onRejected(_this.reason);
-                        resolve(x);
-                    } catch (err) {
-                        reject(err);
-                    }
-                });
+
+            onRejected && this.onFulfilledCallbacks.push(() => {
+                try {
+                    const x = onRejected(this.reason);
+                    resolve(x);
+                } catch (err) {
+                    reject(err);
+                }
             });
-        }
+        });
     }
 
-    return promsie2;
+    return promise2;
 };
+
+function resolvePromise(promise2, x, resolve, reject) {
+    if (promise2 === x) {
+        return reject(new TypeError('循环引用'));
+    }
+
+    if (x != null && (typeof x === 'object' || typeof x === 'function')) {
+        try {
+            const then = x.then;
+
+            if (typeof then === 'function') {
+                then.call(x, (y) => {
+                    resolvePromise(promise2, y, resolve, reject);
+                }, (err) => {
+                    reject(err);
+                });
+            } else {
+                resolve(x);
+            }
+        } catch(err) {
+            reject(err);
+        }
+    } else {
+        resolve(x);
+    }
+}
 ```

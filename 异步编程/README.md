@@ -88,10 +88,10 @@ Node 原生支持 Promise。
 
 	**该回调函数会立即执行。**
 
-	`Promise` 回调函数，可以：
+	`Promise` 回调函数：
 
-	+	没有 `return`，通过 `resolve` 发送信息
-	+	`return/resolve` 一个 `promise` 实例，后文的 `then` 会基于它的状态运行
+	+	通过 `resolve` 发送信息，不通过 `return`
+	+	`resolve` 一个 `promise` 实例或普通值
 
 +	promise 的状态
 
@@ -148,10 +148,7 @@ Node 原生支持 Promise。
 
 	**如果执行 then 之前，实例的状态已经是 fulfilled/rejected，则执行 then 的时候，回调函数会立刻执行**
 
-	`then` 的回调方法需要 `return` 传递信息：
-
-	+	可以返回一个普通数据
-	+	也可以返回一个新的 `promise` 实例，后续的链式调用会基于该实例的状态运行
+	`then` 的回调方法需要 `return` 传递信息：返回一个新的 `promise` 实例/普通数据
 
 +	链式调用
 
