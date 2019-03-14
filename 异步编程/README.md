@@ -518,7 +518,7 @@ Node 原生支持 Promise。
 这几篇文章讲的很好: 
 
 +	Generator 函数的含义与用法: http://www.ruanyifeng.com/blog/2015/04/generator.html
-+	Thunk函数的含义与用法: http://www.ruanyifeng.com/blog/2015/04/generator.html
++	Thunk函数的含义与用法: http://www.ruanyifeng.com/blog/2015/05/thunk.html
 +	co函数库的含义与用法: http://www.ruanyifeng.com/blog/2015/05/co.html
 
 ## async
